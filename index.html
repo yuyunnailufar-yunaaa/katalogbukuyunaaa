@@ -6,16 +6,17 @@
   <title>Katalog Bukunya Yunaaa 📚</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Google Fonts Collection -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400&family=Merriweather:wght@400;700&family=Nunito:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            serif: ['"Playfair Display"', 'serif'],
-          },
           colors: {
             brand: {
               50: '#fdf8f6',
@@ -29,8 +30,22 @@
       }
     }
   </script>
+  <style>
+    /* Definition Font Classes */
+    .font-novel-header { font-family: 'Lora', serif; }
+    .font-novel-body { font-family: 'Inter', sans-serif; }
+
+    .font-modern-header { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-modern-body { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    .font-vintage-header { font-family: 'Merriweather', serif; }
+    .font-vintage-body { font-family: 'Nunito', sans-serif; }
+
+    .font-playfair-header { font-family: 'Playfair Display', serif; }
+    .font-playfair-body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  </style>
 </head>
-<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-300">
+<body id="appBody" class="font-novel-body bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-300">
 
   <!-- Header -->
   <header class="relative overflow-hidden bg-gradient-to-r from-amber-50 via-orange-50 to-rose-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 border-b border-slate-200/60 dark:border-slate-800 py-10 px-4 sm:px-6 lg:px-8">
@@ -39,7 +54,7 @@
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-500 text-xs font-semibold tracking-wide uppercase mb-3">
           ✨ Perpustakaan Pribadi
         </div>
-        <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white font-serif">
+        <h1 id="appTitle" class="font-novel-header text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
           KATALOG BUKUNYA YUNAAA
         </h1>
         <p class="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xl">
@@ -47,14 +62,27 @@
         </p>
       </div>
 
-      <!-- Stats -->
-      <div class="flex items-center gap-4">
+      <!-- Control Box (Font Switcher & Stats) -->
+      <div class="flex flex-col sm:flex-row items-center gap-4">
+        
+        <!-- Font Selector Dropdown -->
+        <div class="bg-white dark:bg-slate-800 p-2 rounded-2xl shadow-sm border border-slate-200/60 dark:border-slate-700 flex items-center gap-2">
+          <span class="text-xs font-bold pl-2 text-slate-400">🔤 Font:</span>
+          <select id="fontSelect" class="bg-slate-50 dark:bg-slate-900 text-xs font-semibold px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none text-slate-700 dark:text-slate-200">
+            <option value="novel">1. Novel Sastra (Lora + Inter)</option>
+            <option value="modern">2. Modern Minimalis (Jakarta Sans)</option>
+            <option value="vintage">3. Vintage Warm (Merriweather + Nunito)</option>
+            <option value="playfair">4. Classic Elegance (Playfair + Jakarta)</option>
+          </select>
+        </div>
+
+        <!-- Quick Stats -->
         <div class="flex gap-3 text-center">
-          <div class="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-200/60 dark:border-slate-700 min-w-[80px]">
+          <div class="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-200/60 dark:border-slate-700 min-w-[70px]">
             <span id="statTotal" class="block text-xl font-bold text-brand-600 dark:text-brand-500">0</span>
-            <span class="text-[10px] uppercase font-semibold text-slate-400">Total Buku</span>
+            <span class="text-[10px] uppercase font-semibold text-slate-400">Total</span>
           </div>
-          <div class="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-200/60 dark:border-slate-700 min-w-[80px]">
+          <div class="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-200/60 dark:border-slate-700 min-w-[70px]">
             <span id="statAvailable" class="block text-xl font-bold text-emerald-600">0</span>
             <span class="text-[10px] uppercase font-semibold text-slate-400">Tersedia</span>
           </div>
@@ -117,6 +145,36 @@
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQdhaKnK0hMx_wqZi6c_gn_8frqXE1iOywJNvg7d8oDovSlN_rlFTLo6QGJvbsr5yY6ZLwFYmiCy4VY/pub?gid=0&single=true&output=csv';
     let allBooks = [];
 
+    // Font Switching Engine
+    const fontSelect = document.getElementById('fontSelect');
+    const appBody = document.getElementById('appBody');
+    const appTitle = document.getElementById('appTitle');
+
+    fontSelect.addEventListener('change', (e) => {
+      const selected = e.target.value;
+      
+      // Reset classes
+      appBody.className = appBody.className.replace(/font-\w+-body/g, '');
+      appTitle.className = appTitle.className.replace(/font-\w+-header/g, '');
+
+      if (selected === 'novel') {
+        appBody.classList.add('font-novel-body');
+        appTitle.classList.add('font-novel-header');
+      } else if (selected === 'modern') {
+        appBody.classList.add('font-modern-body');
+        appTitle.classList.add('font-modern-header');
+      } else if (selected === 'vintage') {
+        appBody.classList.add('font-vintage-body');
+        appTitle.classList.add('font-vintage-header');
+      } else if (selected === 'playfair') {
+        appBody.classList.add('font-playfair-body');
+        appTitle.classList.add('font-playfair-header');
+      }
+
+      // Re-render book title fonts
+      renderBooks(allBooks);
+    });
+
     // Theme Toggle
     const themeToggle = document.getElementById('themeToggle');
     themeToggle.addEventListener('click', () => {
@@ -132,7 +190,6 @@
         complete: (results) => {
           const rawRows = results.data;
           
-          // Cari baris header yang berisi "JUDUL BUKU"
           let headerIndex = -1;
           for (let i = 0; i < rawRows.length; i++) {
             if (rawRows[i].some(cell => cell.toString().toUpperCase().includes('JUDUL BUKU'))) {
@@ -195,6 +252,15 @@
       document.getElementById('locationFilter').innerHTML = locations.map(l => `<option value="${l}">${l === 'ALL' ? 'Semua Lokasi' : '📍 ' + l}</option>`).join('');
     }
 
+    function getTitleFontClass() {
+      const selected = fontSelect.value;
+      if (selected === 'novel') return 'font-novel-header';
+      if (selected === 'modern') return 'font-modern-header';
+      if (selected === 'vintage') return 'font-vintage-header';
+      if (selected === 'playfair') return 'font-playfair-header';
+      return '';
+    }
+
     function renderBooks(books) {
       const container = document.getElementById('booksGrid');
       const emptyState = document.getElementById('emptyState');
@@ -205,6 +271,8 @@
         return;
       }
 
+      const titleFontClass = getTitleFontClass();
+
       emptyState.classList.add('hidden');
       container.innerHTML = books.map(book => {
         const isAvailable = book.status.toUpperCase().includes('TERSEDIA');
@@ -213,7 +281,7 @@
           : 'bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-400 border-rose-200/60 dark:border-rose-800';
         
         return `
-          <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200/70 dark:border-slate-700/70 shadow-sm flex flex-col justify-between">
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200/70 dark:border-slate-700/70 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
             <div>
               <div class="flex items-center justify-between gap-2 mb-3">
                 <span class="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
@@ -227,7 +295,7 @@
                 </div>
               </div>
 
-              <h3 class="font-bold text-slate-900 dark:text-white text-base leading-snug line-clamp-2">
+              <h3 class="${titleFontClass} font-bold text-slate-900 dark:text-white text-base leading-snug line-clamp-2">
                 ${book.judul}
               </h3>
               <p class="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1">

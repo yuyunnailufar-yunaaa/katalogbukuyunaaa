@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
   
-  <!-- Google Fonts: Gloria Hallelujah (Header Hand-written) & Plus Jakarta Sans (Isi) -->
+  <!-- Google Fonts: Gloria Hallelujah (Hanya untuk Header Utama) & Plus Jakarta Sans (Isi & Judul Buku) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -47,14 +47,22 @@
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
       <div class="text-center md:text-left">
         
-        <!-- Welcome Badge dengan Logo Perpustakaan -->
+        <!-- Welcome Badge dengan Inline SVG Logo Perpustakaan Yunaaa -->
         <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/20 text-white text-xs font-bold tracking-wider mb-4 backdrop-blur-md">
-          <img src="logo-no-bg-Copy.svg" alt="Logo Perpustakaan Yunaaa" class="h-6 w-auto brightness-0 invert" />
+          <svg class="h-6 w-auto fill-current text-white shrink-0" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+            <!-- Simbol Buku Mengembang -->
+            <path d="M 50 310 C 120 200, 220 180, 320 280 M 60 330 C 140 230, 230 210, 310 300 M 80 350 C 160 260, 240 240, 300 320 M 110 370 C 180 290, 250 280, 290 340 M 150 385 C 200 330, 260 320, 285 360 M 50 385 Q 200 395 310 370 C 400 370, 500 390, 560 380 Q 420 400, 50 385 Z M 210 385 A 20 20 0 0 1 250 385" stroke="currentColor" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <!-- Teks Logo -->
+            <text x="350" y="240" font-family="'Gloria Hallelujah', cursive" font-size="110" font-weight="bold" fill="currentColor">Perpustakaan</text>
+            <text x="510" y="360" font-family="'Gloria Hallelujah', cursive" font-size="110" font-weight="bold" fill="currentColor">yunaaa</text>
+            <circle cx="400" cy="315" r="28" fill="currentColor"/>
+            <circle cx="910" cy="305" r="18" fill="currentColor"/>
+          </svg>
           <span>Welcome to Yunaaa's Library</span>
         </div>
 
-        <!-- Header Title (Title Case) -->
-        <h1 class="text-3xl sm:text-5xl font-bold text-white font-header tracking-wide leading-tight">
+        <!-- Header Title (Penambahan line-height agar tidak menabrak subheader) -->
+        <h1 class="text-3xl sm:text-5xl font-bold text-white font-header tracking-wide leading-relaxed sm:leading-loose mb-3">
           Katalog Buku Yunaaa
         </h1>
         <p class="mt-2 text-sm sm:text-base text-pink-50 max-w-xl font-medium leading-relaxed">
@@ -152,7 +160,7 @@
             <span id="modalStatus" class="text-[10px] font-extrabold px-2 py-0.5 rounded-full border"></span>
           </div>
 
-          <h2 id="modalTitle" class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white font-header"></h2>
+          <h2 id="modalTitle" class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white"></h2>
           <p id="modalAuthor" class="text-sm font-semibold text-slate-600 dark:text-slate-400 mt-1"></p>
 
           <div class="my-4 pt-3 border-t border-slate-100 dark:border-slate-700 text-xs text-slate-500 dark:text-slate-400 space-y-1">
@@ -291,7 +299,8 @@
                 </div>
               </div>
 
-              <h3 class="font-bold text-slate-900 dark:text-white text-base leading-snug line-clamp-2 group-hover:text-pink-600 transition-colors font-header">
+              <!-- Judul buku kembali menggunakan Plus Jakarta Sans (tanpa font-header) -->
+              <h3 class="font-extrabold text-slate-900 dark:text-white text-base leading-snug line-clamp-2 group-hover:text-pink-600 transition-colors">
                 ${book.judul}
               </h3>
               <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">

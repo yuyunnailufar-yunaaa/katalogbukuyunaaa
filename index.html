@@ -14,8 +14,7 @@
   <style>
     :root {
       --brand-pink: #D81B60;
-      --brand-cream: #FDFBF7; /* Warna Krem Lembut menyesuaikan background logo */
-      --brand-cream-dark: #F4EEDC;
+      --brand-cream: #FDFBF7; 
       --card-bg: #FFFFFF;
       --text-main: #2D1A10;
       --text-sub: #6E5344;
@@ -25,7 +24,6 @@
     .dark {
       --brand-pink: #9D174D;
       --brand-cream: #1E293B;
-      --brand-cream-dark: #0F172A;
       --card-bg: #1E293B;
       --text-main: #F8FAFC;
       --text-sub: #94A3B8;
@@ -36,15 +34,12 @@
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--brand-pink); color: var(--text-main); transition: all 0.3s ease; min-height: 100vh; }
     .font-header { font-family: 'Gloria Hallelujah', cursive; }
 
-    /* Header Warna Krem Menyesuaikan Logo */
     header { background-color: var(--brand-cream); color: var(--text-main); padding: 2.5rem 1rem; border-bottom: 2px solid var(--border-color); }
     .header-container { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; }
     @media(min-width: 768px) { .header-container { flex-direction: row; justify-content: space-between; align-items: center; } }
 
     .badge-wrapper { display: flex; flex-wrap: wrap; align-items: center; gap: 0.85rem; margin-bottom: 0.85rem; }
     .badge { background: rgba(216, 27, 96, 0.1); color: var(--brand-pink); padding: 0.45rem 1.1rem; border-radius: 999px; font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(216, 27, 96, 0.2); }
-    
-    /* Logo Box HD & Clean */
     .logo-box { background: #FFFFFF; padding: 0.4rem 0.8rem; border-radius: 1.25rem; display: flex; align-items: center; box-shadow: 0 8px 20px -4px rgba(0,0,0,0.08); border: 1px solid #EAE4D2; }
     
     .stats-box { display: flex; gap: 0.75rem; }
@@ -52,17 +47,15 @@
     .stat-num { font-size: 1.5rem; font-weight: 800; display: block; color: var(--brand-pink); }
     .stat-label { font-size: 0.65rem; text-transform: uppercase; font-weight: 700; color: var(--text-sub); }
 
-    /* Main Section & Filters */
     main { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
     .filter-card { background: var(--card-bg); padding: 1.25rem; border-radius: 1.5rem; border: 1px solid var(--border-color); margin-bottom: 2rem; display: flex; flex-direction: column; gap: 1rem; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
-    .search-input { width: 100%; padding: 0.875rem 1rem; border-radius: 0.75rem; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); font-size: 0.875rem; font-weight: 600; outline: none; transition: border-color 0.2s; }
+    .search-input { width: 100%; padding: 0.875rem 1rem; border-radius: 0.75rem; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); font-size: 0.875rem; font-weight: 600; outline: none; }
     .search-input:focus { border-color: var(--brand-pink); }
     
     .filter-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
     @media(min-width: 640px) { .filter-grid { grid-template-columns: repeat(4, 1fr); } }
     .select-input { padding: 0.625rem; border-radius: 0.75rem; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); font-size: 0.75rem; font-weight: 700; outline: none; cursor: pointer; }
 
-    /* Books Grid & Cards */
     .books-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
     @media(min-width: 640px) { .books-grid { grid-template-columns: repeat(2, 1fr); } }
     @media(min-width: 1024px) { .books-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -75,24 +68,23 @@
     .tag-genre { background: #FCE7F3; color: #BE185D; }
     .tag-avail { background: #DCFCE7; color: #15803D; }
     .tag-borrowed { background: #FFE4E6; color: #BE123C; }
+    .tag-rekom { background: #FEF3C7; color: #D97706; }
 
-    /* Modal */
+    /* Modal Styling */
     .modal-overlay { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 1rem; }
     .modal-overlay.hidden { display: none; }
-    .modal-body { background: var(--card-bg); border-radius: 1.5rem; max-width: 650px; width: 100%; padding: 1.75rem; max-height: 90vh; overflow-y: auto; position: relative; border: 1px solid var(--border-color); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+    .modal-body { background: var(--card-bg); border-radius: 1.5rem; max-width: 700px; width: 100%; padding: 2rem; max-height: 90vh; overflow-y: auto; position: relative; border: 1px solid var(--border-color); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
     .close-btn { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.25rem; cursor: pointer; color: var(--text-sub); }
   </style>
 </head>
 <body>
 
-  <!-- Header Warna Krem Menyesuaikan Background Logo -->
+  <!-- Header -->
   <header>
     <div class="header-container">
       <div>
         <div class="badge-wrapper">
           <div class="badge">✨ Welcome to Yunaaa's Library</div>
-          
-          <!-- Logo SVG HD & Presisi -->
           <div class="logo-box">
             <svg style="height: 1.8cm; width: auto; display: block;" viewBox="0 0 1150 480" xmlns="http://www.w3.org/2000/svg">
               <path d="M 40 310 C 110 200, 210 180, 310 280 M 50 330 C 130 230, 220 210, 300 300 M 70 350 C 150 260, 230 240, 290 320 M 100 370 C 170 290, 240 280, 280 340 M 140 385 C 190 330, 250 320, 275 360 M 40 385 Q 190 395 300 370 C 390 370, 480 390, 540 380 Q 410 400, 40 385 Z M 200 385 A 20 20 0 0 1 240 385" stroke="#3D2314" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
@@ -122,43 +114,29 @@
             </svg>
           </div>
         </div>
-
         <h1 class="font-header" style="font-size: 2.25rem; font-weight: bold; margin-bottom: 0.25rem; color: var(--text-main);">Katalog Buku Yunaaa</h1>
         <p style="font-size: 0.875rem; color: var(--text-sub); font-weight: 500;">Temukan koleksi bacaan, rekomendasi favorit, dan cek ketersediaan buku yang bisa kamu pinjam.</p>
       </div>
 
       <div style="display: flex; align-items: center; gap: 1rem;">
         <div class="stats-box">
-          <div class="stat-card">
-            <span id="statTotal" class="stat-num">0</span>
-            <span class="stat-label">Total Buku</span>
-          </div>
-          <div class="stat-card">
-            <span id="statAvailable" class="stat-num" style="color: #059669;">0</span>
-            <span class="stat-label">Tersedia</span>
-          </div>
+          <div class="stat-card"><span id="statTotal" class="stat-num">0</span><span class="stat-label">Total Buku</span></div>
+          <div class="stat-card"><span id="statAvailable" class="stat-num" style="color: #059669;">0</span><span class="stat-label">Tersedia</span></div>
         </div>
         <button id="themeToggle" style="background: rgba(0,0,0,0.06); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.75rem; border-radius: 0.75rem; cursor: pointer;">🌙</button>
       </div>
     </div>
   </header>
 
-  <!-- Body Background Pink Fuschia -->
+  <!-- Main -->
   <main>
     <div class="filter-card">
       <input type="text" id="searchInput" class="search-input" placeholder="🔍 Cari judul buku, nama penulis, atau penerbit..." />
       <div class="filter-grid">
         <select id="genreFilter" class="select-input"><option value="ALL">Semua Genre</option></select>
         <select id="locationFilter" class="select-input"><option value="ALL">Semua Lokasi</option></select>
-        <select id="statusFilter" class="select-input">
-          <option value="ALL">Semua Status</option>
-          <option value="TERSEDIA">🟢 Tersedia</option>
-          <option value="DIPINJAM">🔴 Dipinjam</option>
-        </select>
-        <select id="rekomFilter" class="select-input">
-          <option value="ALL">Semua Buku</option>
-          <option value="REKOM">👍 Rekomendasi</option>
-        </select>
+        <select id="statusFilter" class="select-input"><option value="ALL">Semua Status</option><option value="TERSEDIA">🟢 Tersedia</option><option value="DIPINJAM">🔴 Dipinjam</option></select>
+        <select id="rekomFilter" class="select-input"><option value="ALL">Semua Buku</option><option value="REKOM">👍 Rekomendasi</option></select>
       </div>
     </div>
 
@@ -171,26 +149,43 @@
     <div id="booksGrid" class="books-grid"></div>
   </main>
 
-  <!-- Modal Detail -->
+  <!-- Modal Detail Buku (Dilengkapi Cover / Ilustrasi Otomatis) -->
   <div id="bookModal" class="modal-overlay hidden">
     <div class="modal-body">
       <button onclick="closeModal()" class="close-btn">✕</button>
-      <div style="display: flex; flex-direction: column; gap: 1rem;">
-        <div style="display: flex; gap: 0.5rem; align-items: center;">
-          <span id="modalGenre" class="tag tag-genre"></span>
-          <span id="modalStatus" class="tag"></span>
+      <div style="display: flex; flex-direction: column; md-flex-direction: row; gap: 1.5rem; align-items: flex-start;" class="sm:flex-row">
+        
+        <!-- Kolom Cover / Kartu Buku di Pop-up -->
+        <div id="modalCoverWrapper" style="width: 100%; sm:width: 200px; min-width: 170px; background: #FCE7F3; border: 2px dashed #D81B60; border-radius: 1rem; padding: 1.5rem; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 220px;">
+          <img id="modalCoverImg" src="" alt="Cover Buku" style="width: 100%; height: auto; max-height: 240px; object-fit: cover; border-radius: 0.5rem; display: none;" />
+          <div id="modalCoverPlaceholder">
+            <span style="font-size: 2.5rem;">📖</span>
+            <p id="modalPlaceholderTitle" style="font-size: 0.8rem; font-weight: bold; color: #831843; margin-top: 0.5rem; line-height: 1.2;"></p>
+            <span style="font-size: 0.65rem; color: #BE185D; margin-top: 0.5rem; display: block;">Perpustakaan Yunaaa</span>
+          </div>
         </div>
-        <h2 id="modalTitle" style="font-size: 1.5rem; font-weight: 800;"></h2>
-        <p id="modalAuthor" style="font-weight: 600; color: var(--text-sub); font-size: 0.875rem;"></p>
-        <hr style="border: none; border-top: 1px solid var(--border-color);" />
-        <div style="font-size: 0.75rem; color: var(--text-sub); display: flex; flex-direction: column; gap: 0.25rem;">
-          <p><strong>Penerbit:</strong> <span id="modalPublisher"></span></p>
-          <p><strong>Tebal Buku:</strong> <span id="modalPages"></span></p>
-          <p><strong>Lokasi Rak:</strong> <span id="modalLocation"></span></p>
-        </div>
-        <div>
-          <h4 style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-sub); margin-bottom: 0.5rem; font-weight: 800;">Ringkasan Buku</h4>
-          <div id="modalSummary" style="font-size: 0.875rem; line-height: 1.6; color: var(--text-main);"></div>
+
+        <!-- Kolom Teks Detail -->
+        <div style="flex: 1; width: 100%;">
+          <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.75rem;">
+            <span id="modalGenre" class="tag tag-genre"></span>
+            <span id="modalStatus" class="tag"></span>
+          </div>
+          <h2 id="modalTitle" style="font-size: 1.4rem; font-weight: 800; line-height: 1.3;"></h2>
+          <p id="modalAuthor" style="font-weight: 600; color: var(--text-sub); font-size: 0.875rem; margin-top: 0.25rem;"></p>
+          
+          <hr style="border: none; border-top: 1px solid var(--border-color); margin: 1rem 0;" />
+          
+          <div style="font-size: 0.75rem; color: var(--text-sub); display: flex; flex-direction: column; gap: 0.3rem;">
+            <p><strong>Penerbit:</strong> <span id="modalPublisher"></span></p>
+            <p><strong>Tebal Buku:</strong> <span id="modalPages"></span></p>
+            <p><strong>Lokasi Rak:</strong> <span id="modalLocation"></span></p>
+          </div>
+
+          <div style="margin-top: 1.25rem;">
+            <h4 style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-sub); margin-bottom: 0.35rem; font-weight: 800;">Ringkasan / Catatan Buku</h4>
+            <div id="modalSummary" style="font-size: 0.85rem; line-height: 1.5; color: var(--text-main);"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -252,7 +247,8 @@
               status: getCol(row, 'TERSEDIA') || 'TERSEDIA',
               keterangan: getCol(row, 'KETERANGAN'),
               lokasi: getCol(row, 'LOKASI') || '-',
-              ringkasan: getCol(row, 'RINGKASAN') || ''
+              ringkasan: getCol(row, 'RINGKASAN') || '',
+              cover: getCol(row, 'COVER') || ''
             };
           }).filter(Boolean);
 
@@ -293,16 +289,36 @@
         return `
           <div onclick="openModal(${book.id})" class="book-card">
             <div>
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.25rem;">
                 <span class="tag tag-genre">${book.genre}</span>
-                <span class="tag ${isAvail ? 'tag-avail' : 'tag-borrowed'}">${isAvail ? 'TERSEDIA' : 'DIPINJAM'}</span>
+                <div style="display: flex; gap: 0.25rem; align-items: center;">
+                  ${book.rekom ? '<span class="tag tag-rekom">👍 Rekom</span>' : ''}
+                  <span class="tag ${isAvail ? 'tag-avail' : 'tag-borrowed'}">${isAvail ? 'TERSEDIA' : 'DIPINJAM'}</span>
+                </div>
               </div>
               <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; line-height: 1.3;">${book.judul}</h3>
               <p style="font-size: 0.75rem; color: var(--text-sub); font-weight: 600;">${book.penulis}</p>
+
+              <div style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--border-color); font-size: 0.7rem; color: var(--text-sub); display: flex; flex-direction: column; gap: 0.2rem;">
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Penerbit:</span>
+                  <span style="font-weight: 700; color: var(--text-main);">${book.penerbit} (${book.tahun})</span>
+                </div>
+                ${book.halaman && book.halaman !== '-' ? `
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Tebal:</span>
+                  <span style="font-weight: 700; color: var(--text-main);">${book.halaman} Hal</span>
+                </div>` : ''}
+                ${book.keterangan ? `
+                <div style="margin-top: 0.35rem; font-style: italic; background: rgba(0,0,0,0.02); padding: 0.25rem 0.5rem; border-radius: 0.375rem; color: var(--text-sub);">
+                  "${book.keterangan}"
+                </div>` : ''}
+              </div>
             </div>
-            <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-sub);">
+
+            <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; font-size: 0.7rem; color: var(--text-sub);">
               <span>📍 ${book.lokasi}</span>
-              <span style="color: var(--brand-pink); font-weight: 700;">Detail →</span>
+              <span style="color: var(--brand-pink); font-weight: 700;">Detail Lengkap →</span>
             </div>
           </div>
         `;
@@ -325,7 +341,23 @@
       modalStatus.innerText = isAvail ? 'TERSEDIA' : 'DIPINJAM';
       modalStatus.className = `tag ${isAvail ? 'tag-avail' : 'tag-borrowed'}`;
 
-      document.getElementById('modalSummary').innerText = book.ringkasan || 'Belum ada ringkasan untuk buku ini.';
+      document.getElementById('modalSummary').innerText = book.ringkasan || book.keterangan || 'Belum ada ringkasan atau catatan khusus untuk buku ini.';
+
+      // Handle Cover / Ilustrasi Pop-up
+      const img = document.getElementById('modalCoverImg');
+      const placeholder = document.getElementById('modalCoverPlaceholder');
+      const placeholderTitle = document.getElementById('modalPlaceholderTitle');
+
+      if (book.cover && book.cover.startsWith('http')) {
+        img.src = book.cover;
+        img.style.display = 'block';
+        placeholder.style.display = 'none';
+      } else {
+        img.style.display = 'none';
+        placeholder.style.display = 'block';
+        placeholderTitle.innerText = book.judul;
+      }
+
       document.getElementById('bookModal').classList.remove('hidden');
     }
 

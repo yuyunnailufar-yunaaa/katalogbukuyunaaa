@@ -7,10 +7,10 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
   
-  <!-- Google Font: Plus Jakarta Sans -->
+  <!-- Google Fonts: Playfair Display (Estetik Header) & Plus Jakarta Sans (Isi) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -18,15 +18,17 @@
       theme: {
         extend: {
           fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
           },
           colors: {
             brand: {
-              50: '#fdf8f6',
-              100: '#f2e8e5',
-              500: '#e07a5f',
-              600: '#d15e41',
-              900: '#3d405b',
+              50: '#fdf2f8',
+              100: '#fce7f3',
+              500: '#ec4899',
+              600: '#d81b60',
+              700: '#be185d',
+              900: '#831843',
             }
           }
         }
@@ -35,21 +37,22 @@
   </script>
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-header { font-family: 'Playfair Display', serif; }
   </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-300 font-sans">
 
-  <!-- Header -->
-  <header class="relative overflow-hidden bg-gradient-to-r from-amber-50 via-orange-50 to-rose-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 border-b border-slate-200/60 dark:border-slate-800 py-10 px-4 sm:px-6 lg:px-8">
+  <!-- Header Warna Pink Fuschia Estetik -->
+  <header class="relative overflow-hidden bg-[#D81B60] dark:bg-slate-950 border-b border-pink-700/40 py-12 px-4 sm:px-6 lg:px-8 shadow-md">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
       <div class="text-center md:text-left">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-500 text-xs font-bold tracking-wide uppercase mb-3">
-          ✨ Perpustakaan Pribadi
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/20 text-white text-xs font-bold tracking-wider uppercase mb-3 backdrop-blur-md">
+          ✨ PERPUSTAKAAN PRIBADI
         </div>
-        <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white font-header">
           KATALOG BUKUNYA YUNAAA
         </h1>
-        <p class="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xl font-medium">
+        <p class="mt-2 text-sm sm:text-base text-pink-50 max-w-xl font-medium leading-relaxed">
           Temukan koleksi bacaan, rekomendasi favorit, dan cek ketersediaan buku yang bisa kamu pinjam.
         </p>
       </div>
@@ -57,17 +60,17 @@
       <!-- Quick Stats & Theme Toggle -->
       <div class="flex items-center gap-4">
         <div class="flex gap-3 text-center">
-          <div class="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-200/60 dark:border-slate-700 min-w-[80px]">
-            <span id="statTotal" class="block text-xl font-extrabold text-brand-600 dark:text-brand-500">0</span>
-            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Total Buku</span>
+          <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl border border-white/20 min-w-[80px]">
+            <span id="statTotal" class="block text-2xl font-extrabold text-white">0</span>
+            <span class="text-[10px] uppercase font-bold text-pink-100 tracking-wider">Total Buku</span>
           </div>
-          <div class="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-200/60 dark:border-slate-700 min-w-[80px]">
-            <span id="statAvailable" class="block text-xl font-extrabold text-emerald-600">0</span>
-            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Tersedia</span>
+          <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl border border-white/20 min-w-[80px]">
+            <span id="statAvailable" class="block text-2xl font-extrabold text-emerald-300">0</span>
+            <span class="text-[10px] uppercase font-bold text-pink-100 tracking-wider">Tersedia</span>
           </div>
         </div>
 
-        <button id="themeToggle" class="p-3 rounded-2xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200/60 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:scale-105 transition-transform">
+        <button id="themeToggle" class="p-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 transition-all">
           🌙
         </button>
       </div>
@@ -82,23 +85,23 @@
       <div class="relative">
         <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">🔍</span>
         <input type="text" id="searchInput" placeholder="Cari judul buku, nama penulis, atau penerbit..." 
-          class="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm font-semibold transition-all" />
+          class="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm font-semibold transition-all" />
       </div>
 
       <!-- Filters Grid -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <select id="genreFilter" class="px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500">
+        <select id="genreFilter" class="px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-pink-500">
           <option value="ALL">Semua Genre</option>
         </select>
-        <select id="locationFilter" class="px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500">
+        <select id="locationFilter" class="px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-pink-500">
           <option value="ALL">Semua Lokasi</option>
         </select>
-        <select id="statusFilter" class="px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500">
+        <select id="statusFilter" class="px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-pink-500">
           <option value="ALL">Semua Status</option>
           <option value="TERSEDIA">🟢 Tersedia</option>
           <option value="DIPINJAM">🔴 Dipinjam</option>
         </select>
-        <select id="rekomFilter" class="px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500">
+        <select id="rekomFilter" class="px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-pink-500">
           <option value="ALL">Semua Buku</option>
           <option value="REKOM">👍 Rekomendasi</option>
         </select>
@@ -107,7 +110,7 @@
 
     <!-- Loading State -->
     <div id="loading" class="text-center py-16">
-      <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-brand-500 border-t-transparent"></div>
+      <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-pink-500 border-t-transparent"></div>
       <p class="mt-4 text-sm font-semibold text-slate-500">Memuat katalog buku...</p>
     </div>
 
@@ -121,6 +124,46 @@
     <!-- Books Grid Container -->
     <div id="booksGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
   </main>
+
+  <!-- Modal Pop-up Detail Buku -->
+  <div id="bookModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-100 dark:border-slate-700 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white text-xl p-2 rounded-full">✕</button>
+      
+      <div class="flex flex-col sm:flex-row gap-6 items-start">
+        <!-- Cover Image -->
+        <div class="w-full sm:w-48 shrink-0 bg-pink-50 dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 flex items-center justify-center min-h-[220px]">
+          <img id="modalCover" src="" alt="Cover Buku" class="w-full h-auto object-cover rounded-2xl hidden" />
+          <div id="modalPlaceholder" class="text-center p-4">
+            <span class="text-4xl">📚</span>
+            <p class="text-xs font-semibold text-pink-600 dark:text-pink-400 mt-2">Katalog Yunaaa</p>
+          </div>
+        </div>
+
+        <!-- Detail Content -->
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-2">
+            <span id="modalGenre" class="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-lg bg-pink-50 dark:bg-pink-950/50 text-pink-600 dark:text-pink-400"></span>
+            <span id="modalStatus" class="text-[10px] font-extrabold px-2 py-0.5 rounded-full border"></span>
+          </div>
+
+          <h2 id="modalTitle" class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-header"></h2>
+          <p id="modalAuthor" class="text-sm font-semibold text-slate-600 dark:text-slate-400 mt-1"></p>
+
+          <div class="my-4 pt-3 border-t border-slate-100 dark:border-slate-700 text-xs text-slate-500 dark:text-slate-400 space-y-1">
+            <p><strong>Penerbit:</strong> <span id="modalPublisher"></span></p>
+            <p><strong>Tebal Buku:</strong> <span id="modalPages"></span></p>
+            <p><strong>Lokasi Rak:</strong> <span id="modalLocation"></span></p>
+          </div>
+
+          <div class="mt-4">
+            <h4 class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-2">Ringkasan Buku</h4>
+            <div id="modalSummary" class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 space-y-3 leading-relaxed font-medium"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <footer class="mt-16 border-t border-slate-200 dark:border-slate-800 py-8 text-center text-xs font-semibold text-slate-400">
     <p>© Katalog Bukunya Yunaaa</p>
@@ -167,11 +210,12 @@
             return idx !== -1 && row[idx] ? row[idx].trim() : '';
           };
 
-          allBooks = dataRows.map(row => {
+          allBooks = dataRows.map((row, idx) => {
             const judul = getCol(row, 'JUDUL');
             if (!judul) return null;
 
             return {
+              id: idx,
               no: getCol(row, 'NO'),
               judul: judul,
               penulis: getCol(row, 'PENULIS') || 'Anonim',
@@ -182,7 +226,9 @@
               rekom: getCol(row, 'REKOM').includes('👍'),
               status: getCol(row, 'TERSEDIA') || 'TERSEDIA',
               keterangan: getCol(row, 'KETERANGAN'),
-              lokasi: getCol(row, 'LOKASI') || '-'
+              lokasi: getCol(row, 'LOKASI') || '-',
+              ringkasan: getCol(row, 'RINGKASAN') || '',
+              cover: getCol(row, 'COVER') || ''
             };
           }).filter(Boolean);
 
@@ -226,10 +272,10 @@
           : 'bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-400 border-rose-200/60 dark:border-rose-800';
         
         return `
-          <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200/70 dark:border-slate-700/70 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+          <div onclick="openModal(${book.id})" class="cursor-pointer bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200/70 dark:border-slate-700/70 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
             <div>
               <div class="flex items-center justify-between gap-2 mb-3">
-                <span class="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 tracking-wider">
+                <span class="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-lg bg-pink-50 dark:bg-pink-950/50 text-pink-600 dark:text-pink-400 tracking-wider">
                   ${book.genre}
                 </span>
                 <div class="flex items-center gap-1.5">
@@ -240,11 +286,11 @@
                 </div>
               </div>
 
-              <h3 class="font-extrabold text-slate-900 dark:text-white text-base leading-snug line-clamp-2">
+              <h3 class="font-extrabold text-slate-900 dark:text-white text-base leading-snug line-clamp-2 group-hover:text-pink-600 transition-colors">
                 ${book.judul}
               </h3>
               <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">
-                ✍️ ${book.penulis}
+                ${book.penulis}
               </p>
 
               <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700/50 space-y-1.5 text-[11px] text-slate-500 dark:text-slate-400">
@@ -266,11 +312,58 @@
 
             <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700/50 flex items-center justify-between text-[11px]">
               <span class="font-bold text-slate-400">📍 Lokasi: <strong class="text-slate-700 dark:text-slate-300">${book.lokasi}</strong></span>
-              <span class="text-slate-300 dark:text-slate-600 font-bold">#${book.no}</span>
+              <span class="text-pink-600 dark:text-pink-400 font-bold group-hover:underline">Detail Buku →</span>
             </div>
           </div>
         `;
       }).join('');
+    }
+
+    // Pop-up Modal Controls
+    function openModal(id) {
+      const book = allBooks.find(b => b.id === id);
+      if (!book) return;
+
+      document.getElementById('modalTitle').innerText = book.judul;
+      document.getElementById('modalAuthor').innerText = book.penulis;
+      document.getElementById('modalGenre').innerText = book.genre;
+      document.getElementById('modalPublisher').innerText = `${book.penerbit} (${book.tahun})`;
+      document.getElementById('modalPages').innerText = book.halaman !== '-' ? `${book.halaman} Halaman` : '-';
+      document.getElementById('modalLocation').innerText = book.lokasi;
+
+      const isAvailable = book.status.toUpperCase().includes('TERSEDIA');
+      const modalStatus = document.getElementById('modalStatus');
+      modalStatus.innerText = isAvailable ? 'TERSEDIA' : 'DIPINJAM';
+      modalStatus.className = isAvailable 
+        ? 'text-[10px] font-extrabold px-2 py-0.5 rounded-full border bg-emerald-50 text-emerald-700 border-emerald-200'
+        : 'text-[10px] font-extrabold px-2 py-0.5 rounded-full border bg-rose-50 text-rose-700 border-rose-200';
+
+      // Handle Cover
+      const img = document.getElementById('modalCover');
+      const placeholder = document.getElementById('modalPlaceholder');
+      if (book.cover && book.cover.startsWith('http')) {
+        img.src = book.cover;
+        img.classList.remove('hidden');
+        placeholder.classList.add('hidden');
+      } else {
+        img.classList.add('hidden');
+        placeholder.classList.remove('hidden');
+      }
+
+      // Handle Summary Paragraphs
+      const summaryContainer = document.getElementById('modalSummary');
+      if (book.ringkasan) {
+        const paragraphs = book.ringkasan.split('\n').filter(p => p.trim() !== '');
+        summaryContainer.innerHTML = paragraphs.map(p => `<p>${p}</p>`).join('');
+      } else {
+        summaryContainer.innerHTML = '<p class="text-slate-400 italic">Belum ada ringkasan untuk buku ini.</p>';
+      }
+
+      document.getElementById('bookModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('bookModal').classList.add('hidden');
     }
 
     function filterBooks() {

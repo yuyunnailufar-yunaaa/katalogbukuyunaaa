@@ -7,16 +7,19 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
   
-  <!-- Google Fonts Collection -->
+  <!-- Google Font: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400&family=Merriweather:wght@400;700&family=Nunito:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
           colors: {
             brand: {
               50: '#fdf8f6',
@@ -31,151 +34,104 @@
     }
   </script>
   <style>
-    /* Definition Font Classes */
-    .font-novel-header { font-family: 'Lora', serif; }
-    .font-novel-body { font-family: 'Inter', sans-serif; }
-
-    .font-modern-header { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .font-modern-body { font-family: 'Plus Jakarta Sans', sans-serif; }
-
-    .font-vintage-header { font-family: 'Merriweather', serif; }
-    .font-vintage-body { font-family: 'Nunito', sans-serif; }
-
-    .font-playfair-header { font-family: 'Playfair Display', serif; }
-    .font-playfair-body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
   </style>
 </head>
-<body id="appBody" class="font-novel-body bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-300">
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-300 font-sans">
 
   <!-- Header -->
   <header class="relative overflow-hidden bg-gradient-to-r from-amber-50 via-orange-50 to-rose-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 border-b border-slate-200/60 dark:border-slate-800 py-10 px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
       <div class="text-center md:text-left">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-500 text-xs font-semibold tracking-wide uppercase mb-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-500 text-xs font-bold tracking-wide uppercase mb-3">
           ✨ Perpustakaan Pribadi
         </div>
-        <h1 id="appTitle" class="font-novel-header text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+        <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
           KATALOG BUKUNYA YUNAAA
         </h1>
-        <p class="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xl">
+        <p class="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xl font-medium">
           Temukan koleksi bacaan, rekomendasi favorit, dan cek ketersediaan buku yang bisa kamu pinjam.
         </p>
       </div>
 
-      <!-- Control Box (Font Switcher & Stats) -->
-      <div class="flex flex-col sm:flex-row items-center gap-4">
-        
-        <!-- Font Selector Dropdown -->
-        <div class="bg-white dark:bg-slate-800 p-2 rounded-2xl shadow-sm border border-slate-200/60 dark:border-slate-700 flex items-center gap-2">
-          <span class="text-xs font-bold pl-2 text-slate-400">🔤 Font:</span>
-          <select id="fontSelect" class="bg-slate-50 dark:bg-slate-900 text-xs font-semibold px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none text-slate-700 dark:text-slate-200">
-            <option value="novel">1. Novel Sastra (Lora + Inter)</option>
-            <option value="modern">2. Modern Minimalis (Jakarta Sans)</option>
-            <option value="vintage">3. Vintage Warm (Merriweather + Nunito)</option>
-            <option value="playfair">4. Classic Elegance (Playfair + Jakarta)</option>
-          </select>
-        </div>
-
-        <!-- Quick Stats -->
+      <!-- Quick Stats & Theme Toggle -->
+      <div class="flex items-center gap-4">
         <div class="flex gap-3 text-center">
-          <div class="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-200/60 dark:border-slate-700 min-w-[70px]">
-            <span id="statTotal" class="block text-xl font-bold text-brand-600 dark:text-brand-500">0</span>
-            <span class="text-[10px] uppercase font-semibold text-slate-400">Total</span>
+          <div class="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-200/60 dark:border-slate-700 min-w-[80px]">
+            <span id="statTotal" class="block text-xl font-extrabold text-brand-600 dark:text-brand-500">0</span>
+            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Total Buku</span>
           </div>
-          <div class="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-200/60 dark:border-slate-700 min-w-[70px]">
-            <span id="statAvailable" class="block text-xl font-bold text-emerald-600">0</span>
-            <span class="text-[10px] uppercase font-semibold text-slate-400">Tersedia</span>
+          <div class="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-200/60 dark:border-slate-700 min-w-[80px]">
+            <span id="statAvailable" class="block text-xl font-extrabold text-emerald-600">0</span>
+            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Tersedia</span>
           </div>
         </div>
 
-        <button id="themeToggle" class="p-3 rounded-2xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200/60 dark:border-slate-700 text-slate-600 dark:text-slate-300">
+        <button id="themeToggle" class="p-3 rounded-2xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200/60 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:scale-105 transition-transform">
           🌙
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Controls -->
+  <!-- Control & Filter Panel -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="bg-white dark:bg-slate-800 rounded-3xl p-4 sm:p-6 shadow-sm border border-slate-200/60 dark:border-slate-700/60 mb-8 space-y-4">
+      
+      <!-- Search Bar -->
       <div class="relative">
         <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">🔍</span>
         <input type="text" id="searchInput" placeholder="Cari judul buku, nama penulis, atau penerbit..." 
-          class="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm font-medium" />
+          class="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm font-semibold transition-all" />
       </div>
 
+      <!-- Filters Grid -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <select id="genreFilter" class="px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-semibold">
+        <select id="genreFilter" class="px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500">
           <option value="ALL">Semua Genre</option>
         </select>
-        <select id="locationFilter" class="px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-semibold">
+        <select id="locationFilter" class="px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500">
           <option value="ALL">Semua Lokasi</option>
         </select>
-        <select id="statusFilter" class="px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-semibold">
+        <select id="statusFilter" class="px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500">
           <option value="ALL">Semua Status</option>
           <option value="TERSEDIA">🟢 Tersedia</option>
           <option value="DIPINJAM">🔴 Dipinjam</option>
         </select>
-        <select id="rekomFilter" class="px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-semibold">
+        <select id="rekomFilter" class="px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500">
           <option value="ALL">Semua Buku</option>
           <option value="REKOM">👍 Rekomendasi</option>
         </select>
       </div>
     </div>
 
+    <!-- Loading State -->
     <div id="loading" class="text-center py-16">
       <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-brand-500 border-t-transparent"></div>
-      <p class="mt-4 text-sm font-medium text-slate-500">Memuat katalog buku...</p>
+      <p class="mt-4 text-sm font-semibold text-slate-500">Memuat katalog buku...</p>
     </div>
 
+    <!-- Empty State -->
     <div id="emptyState" class="hidden text-center py-16">
       <span class="text-5xl">📖</span>
       <h3 class="mt-3 text-lg font-bold text-slate-700 dark:text-slate-300">Buku tidak ditemukan</h3>
-      <p class="text-sm text-slate-500 mt-1">Coba kata kunci pencarian lain atau ubah filter di atas.</p>
+      <p class="text-sm font-medium text-slate-500 mt-1">Coba kata kunci pencarian lain atau ubah filter di atas.</p>
     </div>
 
+    <!-- Books Grid Container -->
     <div id="booksGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
   </main>
 
-  <footer class="mt-16 border-t border-slate-200 dark:border-slate-800 py-8 text-center text-xs text-slate-400">
+  <footer class="mt-16 border-t border-slate-200 dark:border-slate-800 py-8 text-center text-xs font-semibold text-slate-400">
     <p>© Katalog Bukunya Yunaaa</p>
   </footer>
 
+  <!-- Script Engine -->
   <script>
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQdhaKnK0hMx_wqZi6c_gn_8frqXE1iOywJNvg7d8oDovSlN_rlFTLo6QGJvbsr5yY6ZLwFYmiCy4VY/pub?gid=0&single=true&output=csv';
     let allBooks = [];
 
-    // Font Switching Engine
-    const fontSelect = document.getElementById('fontSelect');
-    const appBody = document.getElementById('appBody');
-    const appTitle = document.getElementById('appTitle');
-
-    fontSelect.addEventListener('change', (e) => {
-      const selected = e.target.value;
-      
-      // Reset classes
-      appBody.className = appBody.className.replace(/font-\w+-body/g, '');
-      appTitle.className = appTitle.className.replace(/font-\w+-header/g, '');
-
-      if (selected === 'novel') {
-        appBody.classList.add('font-novel-body');
-        appTitle.classList.add('font-novel-header');
-      } else if (selected === 'modern') {
-        appBody.classList.add('font-modern-body');
-        appTitle.classList.add('font-modern-header');
-      } else if (selected === 'vintage') {
-        appBody.classList.add('font-vintage-body');
-        appTitle.classList.add('font-vintage-header');
-      } else if (selected === 'playfair') {
-        appBody.classList.add('font-playfair-body');
-        appTitle.classList.add('font-playfair-header');
-      }
-
-      // Re-render book title fonts
-      renderBooks(allBooks);
-    });
-
-    // Theme Toggle
+    // Dark Mode Toggle
     const themeToggle = document.getElementById('themeToggle');
     themeToggle.addEventListener('click', () => {
       document.documentElement.classList.toggle('dark');
@@ -199,7 +155,7 @@
           }
 
           if (headerIndex === -1) {
-            document.getElementById('loading').innerHTML = '<p class="text-red-500">Format data tidak dikenali.</p>';
+            document.getElementById('loading').innerHTML = '<p class="text-red-500 font-semibold">Format data tidak dikenali.</p>';
             return;
           }
 
@@ -252,15 +208,6 @@
       document.getElementById('locationFilter').innerHTML = locations.map(l => `<option value="${l}">${l === 'ALL' ? 'Semua Lokasi' : '📍 ' + l}</option>`).join('');
     }
 
-    function getTitleFontClass() {
-      const selected = fontSelect.value;
-      if (selected === 'novel') return 'font-novel-header';
-      if (selected === 'modern') return 'font-modern-header';
-      if (selected === 'vintage') return 'font-vintage-header';
-      if (selected === 'playfair') return 'font-playfair-header';
-      return '';
-    }
-
     function renderBooks(books) {
       const container = document.getElementById('booksGrid');
       const emptyState = document.getElementById('emptyState');
@@ -271,8 +218,6 @@
         return;
       }
 
-      const titleFontClass = getTitleFontClass();
-
       emptyState.classList.add('hidden');
       container.innerHTML = books.map(book => {
         const isAvailable = book.status.toUpperCase().includes('TERSEDIA');
@@ -281,47 +226,47 @@
           : 'bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-400 border-rose-200/60 dark:border-rose-800';
         
         return `
-          <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200/70 dark:border-slate-700/70 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200/70 dark:border-slate-700/70 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between gap-2 mb-3">
-                <span class="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
+                <span class="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 tracking-wider">
                   ${book.genre}
                 </span>
                 <div class="flex items-center gap-1.5">
-                  ${book.rekom ? '<span class="text-xs bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 px-2 py-0.5 rounded-full font-medium">👍 Rekom</span>' : ''}
-                  <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${statusBg}">
+                  ${book.rekom ? '<span class="text-xs bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 px-2 py-0.5 rounded-full font-bold">👍 Rekom</span>' : ''}
+                  <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full border ${statusBg}">
                     ${isAvailable ? 'TERSEDIA' : 'DIPINJAM'}
                   </span>
                 </div>
               </div>
 
-              <h3 class="${titleFontClass} font-bold text-slate-900 dark:text-white text-base leading-snug line-clamp-2">
+              <h3 class="font-extrabold text-slate-900 dark:text-white text-base leading-snug line-clamp-2">
                 ${book.judul}
               </h3>
-              <p class="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1">
+              <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">
                 ✍️ ${book.penulis}
               </p>
 
               <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700/50 space-y-1.5 text-[11px] text-slate-500 dark:text-slate-400">
                 <div class="flex justify-between">
                   <span>Penerbit:</span>
-                  <span class="font-semibold text-slate-700 dark:text-slate-300">${book.penerbit} (${book.tahun})</span>
+                  <span class="font-bold text-slate-700 dark:text-slate-300">${book.penerbit} (${book.tahun})</span>
                 </div>
                 ${book.halaman !== '-' && book.halaman !== '' ? `
                 <div class="flex justify-between">
                   <span>Tebal:</span>
-                  <span class="font-semibold text-slate-700 dark:text-slate-300">${book.halaman} Hal</span>
+                  <span class="font-bold text-slate-700 dark:text-slate-300">${book.halaman} Hal</span>
                 </div>` : ''}
                 ${book.keterangan ? `
-                <div class="mt-2 text-slate-600 dark:text-slate-400 italic bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg border border-slate-100 dark:border-slate-800">
+                <div class="mt-2 text-slate-600 dark:text-slate-400 italic font-medium bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg border border-slate-100 dark:border-slate-800">
                   " ${book.keterangan} "
                 </div>` : ''}
               </div>
             </div>
 
             <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700/50 flex items-center justify-between text-[11px]">
-              <span class="font-semibold text-slate-400">📍 Lokasi: <strong class="text-slate-700 dark:text-slate-300">${book.lokasi}</strong></span>
-              <span class="text-slate-300 dark:text-slate-600">#${book.no}</span>
+              <span class="font-bold text-slate-400">📍 Lokasi: <strong class="text-slate-700 dark:text-slate-300">${book.lokasi}</strong></span>
+              <span class="text-slate-300 dark:text-slate-600 font-bold">#${book.no}</span>
             </div>
           </div>
         `;

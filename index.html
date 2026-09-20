@@ -57,7 +57,6 @@
     @media(min-width: 1024px) { .books-grid { grid-template-columns: repeat(3, 1fr); } }
     @media(min-width: 1280px) { .books-grid { grid-template-columns: repeat(4, 1fr); } }
 
-    /* Kartu Buku Sederhana & Clean Look */
     .book-card { background: var(--card-bg); border-radius: 1rem; padding: 1.25rem; border: 1px solid var(--border-color); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
     .book-card:hover { transform: translateY(-4px); box-shadow: 0 12px 25px -5px rgba(0,0,0,0.15); }
     
@@ -67,7 +66,6 @@
     .tag-borrowed { background: #FFE4E6; color: #BE123C; }
     .tag-rekom { background: #FEF3C7; color: #D97706; }
 
-    /* Modal Styling */
     .modal-overlay { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 1rem; }
     .modal-overlay.hidden { display: none; }
     .modal-body { background: var(--card-bg); border-radius: 1.5rem; max-width: 800px; width: 100%; padding: 2rem; max-height: 90vh; overflow-y: auto; position: relative; border: 1px solid var(--border-color); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
@@ -76,7 +74,6 @@
     .modal-content-wrapper { display: flex; flex-direction: column; gap: 2rem; align-items: flex-start; }
     @media(min-width: 640px) { .modal-content-wrapper { flex-direction: row; align-items: flex-start; } }
 
-    /* ====== TAMBAHAN BARU: T&C & Form ====== */
     .tnc-container { margin-top: 4rem; margin-bottom: 2rem; }
     .tnc-header { text-align: center; color: white; margin-bottom: 1.5rem; }
     
@@ -91,9 +88,10 @@
     .btn-readmore { background: none; border: 1px solid var(--brand-pink); color: var(--brand-pink); font-weight: 700; padding: 0.5rem 1rem; border-radius: 0.75rem; cursor: pointer; font-size: 0.8rem; text-align: center; transition: all 0.2s; width: 100%; }
     .btn-readmore:hover { background: var(--brand-pink); color: white; }
 
-    .gform-card { max-width: 600px; margin: 3rem auto; background: var(--card-bg); border-radius: 0.75rem; border: 1px solid var(--border-color); border-top: 10px solid #673AB7; padding: 2rem; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.15); text-align: left; }
-    .gform-btn { display: inline-block; width: 100%; text-align: center; background: #673AB7; color: white; padding: 1rem; border-radius: 0.5rem; font-weight: bold; text-decoration: none; margin-top: 1.5rem; transition: background 0.2s; }
-    .gform-btn:hover { background: #512DA8; }
+    /* Penyesuaian Warna Form: Pink Soft (#F06292) tapi Tegas */
+    .gform-card { max-width: 600px; margin: 3rem auto; background: var(--card-bg); border-radius: 0.75rem; border: 1px solid var(--border-color); border-top: 10px solid #F06292; padding: 2rem; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.15); text-align: left; }
+    .gform-btn { display: inline-block; width: 100%; text-align: center; background: #F06292; color: white; padding: 1rem; border-radius: 0.5rem; font-weight: bold; text-decoration: none; margin-top: 1.5rem; transition: background 0.2s; }
+    .gform-btn:hover { background: #E91E63; } /* Pink sedikit lebih tua saat dihover */
 
     .btn-loadmore { display: block; margin: 2.5rem auto 0; background: var(--brand-cream); color: var(--text-main); font-weight: 800; padding: 1rem 2rem; border-radius: 1rem; cursor: pointer; font-size: 0.9rem; text-align: center; transition: all 0.2s; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
     .btn-loadmore:hover { transform: translateY(-3px); }
@@ -150,7 +148,8 @@
         <!-- Kotak 1 -->
         <div class="tnc-card">
           <div>
-            <h3 class="tnc-title">1. Syarat & Ketentuan</h3>
+            <!-- Angka dihilangkan -->
+            <h3 class="tnc-title">Syarat & Ketentuan</h3>
             <ol class="tnc-list">
               <li>Wajib follow IG <a href="https://www.instagram.com/perpustakaan.yunaaa/" target="_blank" style="color: var(--brand-pink); font-weight: bold;">@perpustakaan.yunaaa</a></li>
               <li>Membayar deposit Rp20.000 sebagai jaminan (dikembalikan di akhir).</li>
@@ -163,7 +162,8 @@
         <!-- Kotak 2 -->
         <div class="tnc-card">
           <div>
-            <h3 class="tnc-title">2. Teknis Peminjaman</h3>
+            <!-- Angka dihilangkan -->
+            <h3 class="tnc-title">Teknis Peminjaman</h3>
             <ol class="tnc-list">
               <li>Memilih buku di web katalogbukuyunaaa.vercel.app.</li>
               <li>Mengisi G-Form peminjaman dengan data jelas.</li>
@@ -176,7 +176,8 @@
         <!-- Kotak 3 -->
         <div class="tnc-card">
           <div>
-            <h3 class="tnc-title">3. Denda Keterlambatan/Kerusakan</h3>
+            <!-- Angka dihilangkan -->
+            <h3 class="tnc-title">Denda Keterlambatan/Kerusakan</h3>
             <ol class="tnc-list">
               <li>Denda diambil dari deposit (jika kurang wajib tambah bayar).</li>
               <li>Keterlambatan 1-3 hari denda Rp10.000.</li>
@@ -264,12 +265,12 @@
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQdhaKnK0hMx_wqZi6c_gn_8frqXE1iOywJNvg7d8oDovSlN_rlFTLo6QGJvbsr5yY6ZLwFYmiCy4VY/pub?gid=0&single=true&output=csv';
     let allBooks = [];
     let currentFilteredBooks = [];
-    let isShowingAll = false; // State pembatasan baris
+    let isShowingAll = false; 
 
-    // Data lengkap Syarat & Ketentuan
+    // Data lengkap Syarat & Ketentuan (Angka pada judul dihilangkan)
     const tncData = {
       syarat: {
-        title: "1. Syarat & Ketentuan",
+        title: "Syarat & Ketentuan",
         points: [
           'Wajib follow Instagram <a href="https://www.instagram.com/perpustakaan.yunaaa/" target="_blank" style="color: var(--brand-pink); font-weight: bold;">@perpustakaan.yunaaa</a>',
           'Membayar deposit sebesar Rp20.000 sebagai jaminan peminjam, akan dikembalikan setelah peminjaman selesai.',
@@ -279,7 +280,7 @@
         ]
       },
       teknis: {
-        title: "2. Teknis Peminjaman",
+        title: "Teknis Peminjaman",
         points: [
           'Memilih buku di katalog buku link: <a href="https://katalogbukuyunaaa.vercel.app" target="_blank" style="color: var(--brand-pink); font-weight: bold;">katalogbukuyunaaa.vercel.app</a>',
           'Mengisi g-form peminjaman dengan jelas.',
@@ -294,7 +295,7 @@
         ]
       },
       denda: {
-        title: "3. Denda Keterlambatan & Kerusakan",
+        title: "Denda Keterlambatan/Kerusakan",
         points: [
           'Diambil dari deposit dan jika kurang harus segera menambahkan sesuai nominal.',
           'Keterlambatan 1-3 hari denda Rp10.000.',
@@ -392,7 +393,6 @@
       document.getElementById('locationFilter').innerHTML = locations.map(l => `<option value="${l}">${l === 'ALL' ? 'Semua Lokasi' : '📍 ' + l}</option>`).join('');
     }
 
-    // ====== LOGIKA LIMIT BARIS ======
     function getDisplayLimit() {
       const width = window.innerWidth;
       if (width >= 1280) return 12; // PC: 3 baris x 4 kartu
@@ -422,7 +422,6 @@
 
       const booksToRender = currentFilteredBooks.slice(0, limit);
       
-      // Tampilkan tombol Muat Lebih Banyak jika belum semua tampil
       if (!isShowingAll && currentFilteredBooks.length > limit) {
         btnLoadMore.style.display = 'block';
       } else {
@@ -458,7 +457,6 @@
       renderBooks();
     }
 
-    // ====== MODAL T&C ======
     function openTncModal(type) {
       const data = tncData[type];
       document.getElementById('tncModalTitle').innerText = data.title;
@@ -470,7 +468,6 @@
       document.getElementById('tncModal').classList.add('hidden');
     }
 
-    // ====== MODAL BUKU LAMA ======
     function openModal(id) {
       const book = allBooks.find(b => b.id === id);
       if (!book) return;
@@ -529,7 +526,7 @@
         return mSearch && mGenre && mLoc && mStatus && mRekom;
       });
 
-      isShowingAll = false; // Reset pembatasan baris setiap kali memfilter
+      isShowingAll = false; 
       renderBooks();
     }
 
@@ -540,7 +537,7 @@
     document.getElementById('rekomFilter').addEventListener('change', filterBooks);
 
     window.addEventListener('resize', () => {
-      if (!isShowingAll) renderBooks(); // Re-render ukuran baris saat layar diputar/di-resize
+      if (!isShowingAll) renderBooks(); 
     });
 
     loadBooks();

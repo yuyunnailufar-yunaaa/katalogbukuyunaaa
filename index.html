@@ -1,366 +1,286 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Katalog Buku Yunaaa 📚</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog & Ketentuan - Perpustakaan Yunaaa</title>
+    <style>
+        :root {
+            --pink-soft-1: #fff0f3; /* Bagian 1: Syarat & Ketentuan */
+            --pink-soft-2: #ffe4e6; /* Bagian 2: Teknis Peminjaman */
+            --pink-soft-3: #fecdd3; /* Bagian 3: Denda */
+            --pink-main: #e11d48;
+            --pink-hover: #be123c;
+            --text-dark: #334155;
+            --bg-body: #fff5f7;
+        }
 
-  <!-- Google Fonts & PapaParse -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
 
-  <style>
-    :root {
-      --brand-pink: #D81B60;
-      --brand-cream: #FDFBF7; 
-      --card-bg: #FFFFFF;
-      --text-main: #2D1A10;
-      --text-sub: #6E5344;
-      --border-color: #E6DCCD;
-    }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
 
-    .dark {
-      --brand-pink: #9D174D;
-      --brand-cream: #1E293B;
-      --card-bg: #1E293B;
-      --text-main: #F8FAFC;
-      --text-sub: #94A3B8;
-      --border-color: #334155;
-    }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--brand-pink); color: var(--text-main); transition: all 0.3s ease; min-height: 100vh; }
-    .font-header { font-family: 'Gloria Hallelujah', cursive; }
+        header h1 {
+            color: var(--pink-main);
+            margin-bottom: 5px;
+        }
 
-    header { background-color: var(--brand-cream); color: var(--text-main); padding: 2.5rem 1rem; border-bottom: 2px solid var(--border-color); }
-    .header-container { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; }
-    @media(min-width: 768px) { .header-container { flex-direction: row; justify-content: space-between; align-items: center; } }
-    
-    .stats-box { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-    .stat-card { background: rgba(0,0,0,0.04); padding: 0.75rem 1rem; border-radius: 1rem; border: 1px solid var(--border-color); text-align: center; min-width: 85px; }
-    .stat-num { font-size: 1.5rem; font-weight: 800; display: block; color: var(--brand-pink); }
-    .stat-label { font-size: 0.65rem; text-transform: uppercase; font-weight: 700; color: var(--text-sub); }
+        header p {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
 
-    main { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
-    .filter-card { background: var(--card-bg); padding: 1.25rem; border-radius: 1.5rem; border: 1px solid var(--border-color); margin-bottom: 2rem; display: flex; flex-direction: column; gap: 1rem; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
-    .search-input { width: 100%; padding: 0.875rem 1rem; border-radius: 0.75rem; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); font-size: 0.875rem; font-weight: 600; outline: none; }
-    .search-input:focus { border-color: var(--brand-pink); }
-    
-    .filter-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-    @media(min-width: 640px) { .filter-grid { grid-template-columns: repeat(4, 1fr); } }
-    .select-input { padding: 0.625rem; border-radius: 0.75rem; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); font-size: 0.75rem; font-weight: 700; outline: none; cursor: pointer; }
+        /* 1. BAGIAN KATALOG BUKU (Grid Kartu Buku) */
+        .catalog-section {
+            margin-bottom: 40px;
+        }
 
-    .books-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
-    @media(min-width: 640px) { .books-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media(min-width: 1024px) { .books-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media(min-width: 1280px) { .books-grid { grid-template-columns: repeat(4, 1fr); } }
+        .catalog-section h2 {
+            text-align: center;
+            color: var(--pink-main);
+            margin-bottom: 20px;
+        }
 
-    /* Kartu Buku Sederhana & Clean Look */
-    .book-card { background: var(--card-bg); border-radius: 1rem; padding: 1.25rem; border: 1px solid var(--border-color); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
-    .book-card:hover { transform: translateY(-4px); box-shadow: 0 12px 25px -5px rgba(0,0,0,0.15); }
-    
-    .tag { font-size: 0.65rem; font-weight: 800; padding: 0.25rem 0.5rem; border-radius: 0.375rem; text-transform: uppercase; display: inline-block; }
-    .tag-genre { background: #FCE7F3; color: #BE185D; }
-    .tag-avail { background: #DCFCE7; color: #15803D; }
-    .tag-borrowed { background: #FFE4E6; color: #BE123C; }
-    .tag-rekom { background: #FEF3C7; color: #D97706; }
+        .book-grid {
+            display: grid;
+            gap: 15px;
+            /* Tampilan HP: 4 kolom */
+            grid-template-columns: repeat(4, 1fr);
+        }
 
-    /* Modal Styling dengan Flexbox Horizontal Murni */
-    .modal-overlay { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 1rem; }
-    .modal-overlay.hidden { display: none; }
-    .modal-body { background: var(--card-bg); border-radius: 1.5rem; max-width: 800px; width: 100%; padding: 2rem; max-height: 90vh; overflow-y: auto; position: relative; border: 1px solid var(--border-color); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
-    .close-btn { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.25rem; cursor: pointer; color: var(--text-sub); z-index: 10; }
+        /* Tampilan PC (Desktop): 3 kolom */
+        @media (min-width: 768px) {
+            .book-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+        }
 
-    /* Layout Pop-up: Kiri Gambar, Kanan Teks */
-    .modal-content-wrapper { display: flex; flex-direction: column; gap: 2rem; align-items: flex-start; }
-    @media(min-width: 640px) {
-      .modal-content-wrapper { flex-direction: row; align-items: flex-start; }
-    }
-  </style>
+        .book-card {
+            background: white;
+            border-radius: 12px;
+            padding: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            text-align: center;
+            border: 1px solid #fbcfe8;
+        }
+
+        .book-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        @media (min-width: 768px) {
+            .book-card img {
+                height: 200px;
+            }
+        }
+
+        .book-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        /* 2. BAGIAN KETENTUAN (3 Kartu dengan Pink Soft Berbeda) */
+        .rules-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .rule-card {
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-syarat {
+            background-color: var(--pink-soft-1);
+            border-left: 6px solid #fda4af;
+        }
+
+        .section-teknis {
+            background-color: var(--pink-soft-2);
+            border-left: 6px solid #fb7185;
+        }
+
+        .section-denda {
+            background-color: var(--pink-soft-3);
+            border-left: 6px solid #f43f5e;
+        }
+
+        .rule-card h3 {
+            font-size: 1.15rem;
+            color: #881337;
+            margin-top: 0;
+            border-bottom: 2px dashed rgba(225, 29, 72, 0.2);
+            padding-bottom: 8px;
+        }
+
+        ol {
+            padding-left: 20px;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: var(--pink-main);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: var(--pink-hover);
+        }
+
+        /* Tombol Aksi di Bawah */
+        .action-container {
+            text-align: center;
+            margin: 40px 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background-color: var(--pink-main);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(225, 29, 72, 0.3);
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--pink-hover);
+            color: white;
+            text-decoration: none;
+            transform: scale(1.03);
+        }
+
+        .btn-ig {
+            background-color: #f43f5e;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="header-container">
-      <div style="max-width: 500px;">
-        <h1 class="font-header" style="font-size: 2.25rem; font-weight: bold; margin-bottom: 0.25rem; color: var(--text-main);">Katalog Buku Yunaaa</h1>
-        <p style="font-size: 0.875rem; color: var(--text-sub); font-weight: 500;">Temukan koleksi bacaan, rekomendasi favorit, dan cek ketersediaan buku yang bisa kamu pinjam.</p>
-      </div>
+<div class="container">
+    <header>
+        <h1>Perpustakaan Yunaaa</h1>
+        <p>Katalog Buku, Syarat, dan Ketentuan Peminjaman</p>
+    </header>
 
-      <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
-        <div class="stats-box">
-          <div class="stat-card"><span id="statTotal" class="stat-num">0</span><span class="stat-label">Total Buku</span></div>
-          <div class="stat-card"><span id="statAvailable" class="stat-num" style="color: #059669;">0</span><span class="stat-label">Tersedia</span></div>
-          <div class="stat-card"><span id="statVisitors" class="stat-num" style="color: #831843;">0</span><span class="stat-label">Bookies Singgah</span></div>
-        </div>
-        <button id="themeToggle" style="background: rgba(0,0,0,0.06); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.75rem; border-radius: 0.75rem; cursor: pointer;">🌙</button>
-      </div>
-    </div>
-  </header>
-
-  <!-- Main -->
-  <main>
-    <div class="filter-card">
-      <input type="text" id="searchInput" class="search-input" placeholder="🔍 Cari judul buku, nama penulis, atau penerbit..." />
-      <div class="filter-grid">
-        <select id="genreFilter" class="select-input"><option value="ALL">Semua Genre</option></select>
-        <select id="locationFilter" class="select-input"><option value="ALL">Semua Lokasi</option></select>
-        <select id="statusFilter" class="select-input"><option value="ALL">Semua Status</option><option value="TERSEDIA">🟢 Tersedia</option><option value="DIPINJAM">🔴 Dipinjam</option></select>
-        <select id="rekomFilter" class="select-input"><option value="ALL">Semua Buku</option><option value="REKOM">👍 Rekomendasi</option></select>
-      </div>
-    </div>
-
-    <div id="loading" style="text-align: center; padding: 3rem; color: white; font-weight: 600;">Memuat katalog buku...</div>
-    <div id="emptyState" style="display: none; text-align: center; padding: 3rem; color: white;">
-      <span style="font-size: 3rem;">📖</span>
-      <p style="margin-top: 0.5rem; font-weight: bold;">Buku tidak ditemukan</p>
-    </div>
-
-    <div id="booksGrid" class="books-grid"></div>
-  </main>
-
-  <!-- Modal Detail Buku (Gambar Kiri, Teks Kanan) -->
-  <div id="bookModal" class="modal-overlay hidden">
-    <div class="modal-body">
-      <button onclick="closeModal()" class="close-btn">✕</button>
-      
-      <div class="modal-content-wrapper">
-        <!-- Kolom Kiri: Cover / Ilustrasi Buku -->
-        <div style="width: 100%; min-width: 210px; max-width: 230px; background: #FCE7F3; border: 2px dashed #D81B60; border-radius: 1rem; padding: 1.5rem; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 270px; flex-shrink: 0; margin: 0 auto;">
-          <img id="modalCoverImg" src="" alt="Cover Buku" style="width: 100%; height: auto; max-height: 280px; object-fit: cover; border-radius: 0.5rem; display: none;" />
-          <div id="modalCoverPlaceholder">
-            <span style="font-size: 3rem;">📖</span>
-            <p id="modalPlaceholderTitle" style="font-size: 0.85rem; font-weight: bold; color: #831843; margin-top: 0.75rem; line-height: 1.3;"></p>
-            <span style="font-size: 0.65rem; color: #BE185D; margin-top: 0.75rem; display: block; font-weight: 700;">Perpustakaan Yunaaa</span>
-          </div>
-        </div>
-
-        <!-- Kolom Kanan: Detail Teks Lengkap -->
-        <div style="flex: 1; width: 100%;">
-          <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap;">
-            <span id="modalGenre" class="tag tag-genre"></span>
-            <span id="modalStatus" class="tag"></span>
-          </div>
-          <h2 id="modalTitle" style="font-size: 1.5rem; font-weight: 800; line-height: 1.3;"></h2>
-          <p id="modalAuthor" style="font-weight: 600; color: var(--text-sub); font-size: 0.9rem; margin-top: 0.25rem;"></p>
-          
-          <hr style="border: none; border-top: 1px solid var(--border-color); margin: 1rem 0;" />
-          
-          <div style="font-size: 0.8rem; color: var(--text-sub); display: flex; flex-direction: column; gap: 0.4rem;">
-            <p><strong>Penerbit:</strong> <span id="modalPublisher" style="color: var(--text-main); font-weight: 600;"></span></p>
-            <p><strong>Tebal Buku:</strong> <span id="modalPages" style="color: var(--text-main); font-weight: 600;"></span></p>
-            <p><strong>Lokasi Rak:</strong> <span id="modalLocation" style="color: var(--text-main); font-weight: 600;"></span></p>
-          </div>
-
-          <div style="margin-top: 1.25rem;">
-            <h4 style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-sub); margin-bottom: 0.35rem; font-weight: 800;">Ringkasan / Catatan Buku</h4>
-            <div id="modalSummary" style="font-size: 0.85rem; line-height: 1.6; color: var(--text-main);"></div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <footer style="margin-top: 4rem; padding: 2rem 0; text-align: center; color: rgba(255,255,255,0.8); font-size: 0.75rem; font-weight: 600; border-top: 1px solid rgba(255,255,255,0.2);">
-    <p>© Katalog Buku Yunaaa</p>
-  </footer>
-
-  <script>
-    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQdhaKnK0hMx_wqZi6c_gn_8frqXE1iOywJNvg7d8oDovSlN_rlFTLo6QGJvbsr5yY6ZLwFYmiCy4VY/pub?gid=0&single=true&output=csv';
-    let allBooks = [];
-
-    // Fungsi Logika Hit Counter (Penyimpanan Lokal)
-    function updateVisitors() {
-      let visits = localStorage.getItem('yunaaa_visits');
-      if (!visits) { visits = 142; } // Angka awal agar terlihat sudah ada yang mampir
-      visits = parseInt(visits) + 1;
-      localStorage.setItem('yunaaa_visits', visits);
-      document.getElementById('statVisitors').innerText = visits;
-    }
-
-    document.getElementById('themeToggle').addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      document.getElementById('themeToggle').innerText = document.body.classList.contains('dark') ? '☀️' : '🌙';
-    });
-
-    async function loadBooks() {
-      Papa.parse(CSV_URL, {
-        download: true,
-        header: false,
-        skipEmptyLines: true,
-        complete: (results) => {
-          const rawRows = results.data;
-          let headerIndex = -1;
-          for (let i = 0; i < rawRows.length; i++) {
-            if (rawRows[i].some(cell => cell.toString().toUpperCase().includes('JUDUL BUKU'))) {
-              headerIndex = i;
-              break;
-            }
-          }
-
-          if (headerIndex === -1) {
-            document.getElementById('loading').innerText = 'Format spreadsheet tidak sesuai.';
-            return;
-          }
-
-          const headers = rawRows[headerIndex].map(h => h.toString().trim().toUpperCase());
-          const dataRows = rawRows.slice(headerIndex + 1);
-
-          const getCol = (row, keyName) => {
-            const idx = headers.findIndex(h => h.includes(keyName));
-            return idx !== -1 && row[idx] ? row[idx].trim() : '';
-          };
-
-          allBooks = dataRows.map((row, idx) => {
-            const judul = getCol(row, 'JUDUL');
-            if (!judul) return null;
-            return {
-              id: idx,
-              judul: judul,
-              penulis: getCol(row, 'PENULIS') || 'Anonim',
-              penerbit: getCol(row, 'PENERBIT') || '-',
-              tahun: getCol(row, 'TAHUN') || '-',
-              halaman: getCol(row, 'HALAMAN') || '-',
-              genre: getCol(row, 'GENRE') || 'LAINNYA',
-              rekom: getCol(row, 'REKOM').includes('👍'),
-              status: getCol(row, 'TERSEDIA') || 'TERSEDIA',
-              keterangan: getCol(row, 'KETERANGAN'),
-              lokasi: getCol(row, 'LOKASI') || '-',
-              ringkasan: getCol(row, 'RINGKASAN') || '',
-              cover: getCol(row, 'COVER') || ''
-            };
-          }).filter(Boolean);
-
-          document.getElementById('loading').style.display = 'none';
-          setupFilters();
-          updateStats();
-          renderBooks(allBooks);
-          updateVisitors(); // Jalankan fungsi pengunjung
-        }
-      });
-    }
-
-    function updateStats() {
-      document.getElementById('statTotal').innerText = allBooks.length;
-      document.getElementById('statAvailable').innerText = allBooks.filter(b => b.status.toUpperCase().includes('TERSEDIA')).length;
-    }
-
-    function setupFilters() {
-      const genres = ['ALL', ...new Set(allBooks.map(b => b.genre))];
-      const locations = ['ALL', ...new Set(allBooks.map(b => b.lokasi))];
-
-      document.getElementById('genreFilter').innerHTML = genres.map(g => `<option value="${g}">${g === 'ALL' ? 'Semua Genre' : g}</option>`).join('');
-      document.getElementById('locationFilter').innerHTML = locations.map(l => `<option value="${l}">${l === 'ALL' ? 'Semua Lokasi' : '📍 ' + l}</option>`).join('');
-    }
-
-    function renderBooks(books) {
-      const container = document.getElementById('booksGrid');
-      const emptyState = document.getElementById('emptyState');
-
-      if (books.length === 0) {
-        container.innerHTML = '';
-        emptyState.style.display = 'block';
-        return;
-      }
-
-      emptyState.style.display = 'none';
-      container.innerHTML = books.map(book => {
-        const isAvail = book.status.toUpperCase().includes('TERSEDIA');
-        return `
-          <div onclick="openModal(${book.id})" class="book-card">
-            <div>
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.25rem;">
-                <span class="tag tag-genre">${book.genre}</span>
-                <div style="display: flex; gap: 0.25rem; align-items: center;">
-                  ${book.rekom ? '<span class="tag tag-rekom">👍 Rekom</span>' : ''}
-                  <span class="tag ${isAvail ? 'tag-avail' : 'tag-borrowed'}">${isAvail ? 'TERSEDIA' : 'DIPINJAM'}</span>
-                </div>
-              </div>
-              <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.35rem; line-height: 1.35;">${book.judul}</h3>
-              <p style="font-size: 0.8rem; color: var(--text-sub); font-weight: 600;">${book.penulis}</p>
+    <!-- BAGIAN 1: KARTU BUKU (Grid 4 kolom di HP, 3 kolom di PC) -->
+    <div class="catalog-section">
+        <h2>Katalog Buku Pilihan</h2>
+        <div class="book-grid">
+            <!-- Contoh Kartu Buku (bisa diulang atau dihubungkan dengan data Google Sheets CMS) -->
+            <div class="book-card">
+                <img src="https://raw.githubusercontent.com/yuyunnailufar-yunaaa/katalogbukuyunaaa/main/images/nanti%20kita%20sambat%20tentang%20hari%20ini.jpg" alt="Nanti Kita Sambat Tentang Hari Ini">
+                <div class="book-title">Nanti Kita Sambat Tentang Hari Ini</div>
             </div>
-
-            <div style="margin-top: 1.25rem; padding-top: 0.75rem; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--text-sub);">
-              <span>📍 Rak: <strong style="color: var(--text-main);">${book.lokasi}</strong></span>
-              <span style="color: var(--brand-pink); font-weight: 700;">Detail Lengkap →</span>
+            <div class="book-card">
+                <img src="https://raw.githubusercontent.com/yuyunnailufar-yunaaa/katalogbukuyunaaa/main/images/orang-orang%20gila.jpg" alt="Orang-Orang Gila">
+                <div class="book-title">Orang-Orang Gila</div>
             </div>
-          </div>
-        `;
-      }).join('');
-    }
+            <div class="book-card">
+                <img src="https://raw.githubusercontent.com/yuyunnailufar-yunaaa/katalogbukuyunaaa/main/images/cantik%20itu%20luka.jpg" alt="Cantik Itu Luka">
+                <div class="book-title">Cantik Itu Luka</div>
+            </div>
+            <div class="book-card">
+                <img src="https://raw.githubusercontent.com/yuyunnailufar-yunaaa/katalogbukuyunaaa/main/images/qiraah%20mubadalah.jpg" alt="Qiraah Mubadalah">
+                <div class="book-title">Qiraah Mubadalah</div>
+            </div>
+        </div>
+    </div>
 
-    function openModal(id) {
-      const book = allBooks.find(b => b.id === id);
-      if (!book) return;
+    <!-- BAGIAN 2: SYARAT DAN KETENTUAN (3 Bagian Berbeda Warna Pink Soft) -->
+    <div class="rules-section">
+        
+        <!-- 1. Syarat dan Ketentuan -->
+        <div class="rule-card section-syarat">
+            <h3>1. Syarat dan Ketentuan</h3>
+            <ol>
+                <li>Wajib follow <a href="https://www.instagram.com/perpustakaan.yunaaa/" target="_blank">@perpustakaan.yunaaa</a></li>
+                <li>Membayar deposit sebesar Rp20.000 sebagai jaminan peminjam, akan dikembalikan setelah peminjaman selesai.</li>
+                <li>Wajib membayar ongkir pengiriman dan pengembalian.</li>
+                <li>Peminjaman maksimal 2 buku untuk sekali peminjaman.</li>
+                <li>Buku yang telah dipinjam, wajib dijaga baik-baik. Tidak membaca dalam kondisi tangan berminyak, basah, ataupun kotor. Tidak boleh mencoret, merusak, dan menghilangkan buku.</li>
+            </ol>
+        </div>
 
-      document.getElementById('modalTitle').innerText = book.judul;
-      document.getElementById('modalAuthor').innerText = book.penulis;
-      document.getElementById('modalGenre').innerText = book.genre;
-      document.getElementById('modalPublisher').innerText = `${book.penerbit} (${book.tahun})`;
-      document.getElementById('modalPages').innerText = book.halaman !== '-' ? `${book.halaman} Halaman` : '-';
-      document.getElementById('modalLocation').innerText = book.lokasi;
+        <!-- 2. Teknis Peminjaman -->
+        <div class="rule-card section-teknis">
+            <h3>2. Teknis Peminjaman</h3>
+            <ol>
+                <li>Memilih buku di katalog buku link: <a href="https://katalogbukuyunaaa.vercel.app" target="_blank">katalogbukuyunaaa.vercel.app</a></li>
+                <li>Mengisi g-form peminjaman dengan jelas.</li>
+                <li>Pengiriman setelah pembayaran deposit dan ongkir.</li>
+                <li>Resi dikirim paling cepat 2 hari setelah pembayaran.</li>
+                <li>Wajib konfirmasi setelah buku diterima.</li>
+                <li>Waktu peminjaman maksimal 1 bulan setelah buku diterima.</li>
+                <li>Resi pengembalian dikirim maksimal 2 hari setelah dikirim.</li>
+                <li>Deposit akan dikembalikan setelah buku yang dipinjam sudah tiba dengan kondisi baik.</li>
+                <li>Bubble wrap dan kardus tidak boleh dihilangkan.</li>
+                <li>Untuk wilayah Surabaya dan Malang, boleh dengan meet up / COD jika memungkinkan (teknis lebih lanjut chat DM/WA)</li>
+            </ol>
+        </div>
 
-      const isAvail = book.status.toUpperCase().includes('TERSEDIA');
-      const modalStatus = document.getElementById('modalStatus');
-      modalStatus.innerText = isAvail ? 'TERSEDIA' : 'DIPINJAM';
-      modalStatus.className = `tag ${isAvail ? 'tag-avail' : 'tag-borrowed'}`;
+        <!-- 3. Denda -->
+        <div class="rule-card section-denda">
+            <h3>3. Denda</h3>
+            <ol>
+                <li>Diambil dari deposit dan jika kurang harus segera menambahkan sesuai nominal.</li>
+                <li>Keterlambatan 1-3 hari denda Rp10.000.</li>
+                <li>Keterlambatan 4-7 hari denda Rp20.000.</li>
+                <li>Keterlambatan lebih dari 7 hari denda Rp35.000.</li>
+                <li>Kerusakan minor, kecoret, ada bekas minyak, sobek, denda Rp10.000.</li>
+                <li>Kerusakan mayor atau menghilangkan buku <strong>WAJIB</strong> mengganti dengan buku dengan judul yang sama, <strong>BUKU WAJIB ORI</strong>.</li>
+                <li>Tidak mengembalikan bubble wrap/kardus denda Rp5.000.</li>
+                <li>Menghilangkan bubble wrap/ kardus wajib mengganti.</li>
+            </ol>
+        </div>
 
-      document.getElementById('modalSummary').innerText = book.ringkasan || book.keterangan || 'Belum ada ringkasan atau catatan khusus untuk buku ini.';
+    </div>
 
-      const img = document.getElementById('modalCoverImg');
-      const placeholder = document.getElementById('modalCoverPlaceholder');
-      const placeholderTitle = document.getElementById('modalPlaceholderTitle');
+    <!-- Tombol Google Form & Instagram -->
+    <div class="action-container">
+        <a href="https://forms.gle/QXPt32d7S3RT9AGz8" target="_blank" class="btn">Isi Google Form Peminjaman</a>
+        <a href="https://www.instagram.com/perpustakaan.yunaaa/" target="_blank" class="btn btn-ig">Kunjungi Instagram</a>
+    </div>
+</div>
 
-      if (book.cover && book.cover.startsWith('http')) {
-        img.src = book.cover;
-        img.style.display = 'block';
-        placeholder.style.display = 'none';
-      } else {
-        img.style.display = 'none';
-        placeholder.style.display = 'block';
-        placeholderTitle.innerText = book.judul;
-      }
-
-      document.getElementById('bookModal').classList.remove('hidden');
-    }
-
-    function closeModal() {
-      document.getElementById('bookModal').classList.add('hidden');
-    }
-
-    function filterBooks() {
-      const search = document.getElementById('searchInput').value.toLowerCase();
-      const genre = document.getElementById('genreFilter').value;
-      const location = document.getElementById('locationFilter').value;
-      const status = document.getElementById('statusFilter').value;
-      const rekom = document.getElementById('rekomFilter').value;
-
-      const filtered = allBooks.filter(b => {
-        const mSearch = b.judul.toLowerCase().includes(search) || b.penulis.toLowerCase().includes(search);
-        const mGenre = genre === 'ALL' || b.genre === genre;
-        const mLoc = location === 'ALL' || b.lokasi === location;
-        let mStatus = true;
-        if (status === 'TERSEDIA') mStatus = b.status.toUpperCase().includes('TERSEDIA');
-        if (status === 'DIPINJAM') mStatus = !b.status.toUpperCase().includes('TERSEDIA');
-        const mRekom = rekom === 'ALL' || (rekom === 'REKOM' && b.rekom);
-
-        return mSearch && mGenre && mLoc && mStatus && mRekom;
-      });
-
-      renderBooks(filtered);
-    }
-
-    document.getElementById('searchInput').addEventListener('input', filterBooks);
-    document.getElementById('genreFilter').addEventListener('change', filterBooks);
-    document.getElementById('locationFilter').addEventListener('change', filterBooks);
-    document.getElementById('statusFilter').addEventListener('change', filterBooks);
-    document.getElementById('rekomFilter').addEventListener('change', filterBooks);
-
-    loadBooks();
-  </script>
 </body>
 </html>

@@ -67,17 +67,36 @@
     .tag-borrowed { background: #FFE4E6; color: #BE123C; }
     .tag-rekom { background: #FEF3C7; color: #D97706; }
 
-    /* Modal Styling dengan Flexbox Horizontal Murni */
+    /* Modal Styling */
     .modal-overlay { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 1rem; }
     .modal-overlay.hidden { display: none; }
     .modal-body { background: var(--card-bg); border-radius: 1.5rem; max-width: 800px; width: 100%; padding: 2rem; max-height: 90vh; overflow-y: auto; position: relative; border: 1px solid var(--border-color); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
     .close-btn { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.25rem; cursor: pointer; color: var(--text-sub); z-index: 10; }
 
-    /* Layout Pop-up: Kiri Gambar, Kanan Teks */
     .modal-content-wrapper { display: flex; flex-direction: column; gap: 2rem; align-items: flex-start; }
-    @media(min-width: 640px) {
-      .modal-content-wrapper { flex-direction: row; align-items: flex-start; }
-    }
+    @media(min-width: 640px) { .modal-content-wrapper { flex-direction: row; align-items: flex-start; } }
+
+    /* ====== TAMBAHAN BARU: T&C & Form ====== */
+    .tnc-container { margin-top: 4rem; margin-bottom: 2rem; }
+    .tnc-header { text-align: center; color: white; margin-bottom: 1.5rem; }
+    
+    .tnc-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+    @media(min-width: 1024px) { .tnc-grid { grid-template-columns: repeat(3, 1fr); } }
+    
+    .tnc-card { background: var(--card-bg); padding: 1.5rem; border-radius: 1.25rem; border: 1px solid var(--border-color); display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+    .tnc-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 0.5rem; }
+    .tnc-list { font-size: 0.85rem; color: var(--text-sub); padding-left: 1.25rem; margin-bottom: 1.25rem; line-height: 1.6; }
+    .tnc-list li { margin-bottom: 0.5rem; }
+    
+    .btn-readmore { background: none; border: 1px solid var(--brand-pink); color: var(--brand-pink); font-weight: 700; padding: 0.5rem 1rem; border-radius: 0.75rem; cursor: pointer; font-size: 0.8rem; text-align: center; transition: all 0.2s; width: 100%; }
+    .btn-readmore:hover { background: var(--brand-pink); color: white; }
+
+    .gform-card { max-width: 600px; margin: 3rem auto; background: var(--card-bg); border-radius: 0.75rem; border: 1px solid var(--border-color); border-top: 10px solid #673AB7; padding: 2rem; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.15); text-align: left; }
+    .gform-btn { display: inline-block; width: 100%; text-align: center; background: #673AB7; color: white; padding: 1rem; border-radius: 0.5rem; font-weight: bold; text-decoration: none; margin-top: 1.5rem; transition: background 0.2s; }
+    .gform-btn:hover { background: #512DA8; }
+
+    .btn-loadmore { display: block; margin: 2.5rem auto 0; background: var(--brand-cream); color: var(--text-main); font-weight: 800; padding: 1rem 2rem; border-radius: 1rem; cursor: pointer; font-size: 0.9rem; text-align: center; transition: all 0.2s; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .btn-loadmore:hover { transform: translateY(-3px); }
   </style>
 </head>
 <body>
@@ -119,16 +138,81 @@
       <p style="margin-top: 0.5rem; font-weight: bold;">Buku tidak ditemukan</p>
     </div>
 
+    <!-- Container Grid Buku -->
     <div id="booksGrid" class="books-grid"></div>
+    <button id="btnLoadMore" class="btn-loadmore" style="display: none;" onclick="showAllBooks()">Lihat Semua Koleksi Buku ➔</button>
+
+    <!-- ====== BAGIAN T&C ====== -->
+    <div class="tnc-container">
+      <h2 class="font-header tnc-header">Panduan Peminjaman 📜</h2>
+      
+      <div class="tnc-grid">
+        <!-- Kotak 1 -->
+        <div class="tnc-card">
+          <div>
+            <h3 class="tnc-title">1. Syarat & Ketentuan</h3>
+            <ol class="tnc-list">
+              <li>Wajib follow IG <a href="https://www.instagram.com/perpustakaan.yunaaa/" target="_blank" style="color: var(--brand-pink); font-weight: bold;">@perpustakaan.yunaaa</a></li>
+              <li>Membayar deposit Rp20.000 sebagai jaminan (dikembalikan di akhir).</li>
+              <li>Wajib membayar ongkir pengiriman & pengembalian.</li>
+            </ol>
+          </div>
+          <button class="btn-readmore" onclick="openTncModal('syarat')">Selengkapnya ➔</button>
+        </div>
+
+        <!-- Kotak 2 -->
+        <div class="tnc-card">
+          <div>
+            <h3 class="tnc-title">2. Teknis Peminjaman</h3>
+            <ol class="tnc-list">
+              <li>Memilih buku di web katalogbukuyunaaa.vercel.app.</li>
+              <li>Mengisi G-Form peminjaman dengan data jelas.</li>
+              <li>Pengiriman dilakukan setelah pembayaran deposit & ongkir.</li>
+            </ol>
+          </div>
+          <button class="btn-readmore" onclick="openTncModal('teknis')">Selengkapnya ➔</button>
+        </div>
+
+        <!-- Kotak 3 -->
+        <div class="tnc-card">
+          <div>
+            <h3 class="tnc-title">3. Denda Keterlambatan/Kerusakan</h3>
+            <ol class="tnc-list">
+              <li>Denda diambil dari deposit (jika kurang wajib tambah bayar).</li>
+              <li>Keterlambatan 1-3 hari denda Rp10.000.</li>
+              <li>Keterlambatan 4-7 hari denda Rp20.000.</li>
+            </ol>
+          </div>
+          <button class="btn-readmore" onclick="openTncModal('denda')">Selengkapnya ➔</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== BAGIAN CUPLIKAN GOOGLE FORM ====== -->
+    <div class="gform-card">
+      <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.5rem;">Formulir Peminjaman Buku</h2>
+      <p style="font-size: 0.85rem; color: var(--text-sub); line-height: 1.5; margin-bottom: 1.5rem;">Pastikan kamu sudah membaca seluruh Syarat & Ketentuan, Teknis Peminjaman, dan Denda sebelum mengisi formulir ini.</p>
+      
+      <!-- Simulasi field kosong agar terlihat seperti form sungguhan -->
+      <div style="background: rgba(0,0,0,0.03); padding: 1rem; border-radius: 0.5rem; border: 1px dashed var(--border-color);">
+        <p style="font-size: 0.75rem; font-weight: 700; color: var(--text-sub);">📧 Email *</p>
+        <div style="border-bottom: 1px solid #ccc; width: 50%; margin-top: 0.5rem; margin-bottom: 1rem;"></div>
+        <p style="font-size: 0.75rem; font-weight: 700; color: var(--text-sub);">👤 Nama Lengkap *</p>
+        <div style="border-bottom: 1px solid #ccc; width: 70%; margin-top: 0.5rem;"></div>
+      </div>
+
+      <a href="https://forms.gle/QXPt32d7S3RT9AGz8" target="_blank" class="gform-btn">
+        Isi Google Form Sekarang 📝
+      </a>
+    </div>
   </main>
 
-  <!-- Modal Detail Buku (Gambar Kiri, Teks Kanan) -->
+  <!-- ====== MODAL DETAIL BUKU (Tidak Diubah) ====== -->
   <div id="bookModal" class="modal-overlay hidden">
     <div class="modal-body">
       <button onclick="closeModal()" class="close-btn">✕</button>
       
       <div class="modal-content-wrapper">
-        <!-- Kolom Kiri: Cover / Ilustrasi Buku -->
         <div style="width: 100%; min-width: 210px; max-width: 230px; background: #FCE7F3; border: 2px dashed #D81B60; border-radius: 1rem; padding: 1.5rem; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 270px; flex-shrink: 0; margin: 0 auto;">
           <img id="modalCoverImg" src="" alt="Cover Buku" style="width: 100%; height: auto; max-height: 280px; object-fit: cover; border-radius: 0.5rem; display: none;" />
           <div id="modalCoverPlaceholder">
@@ -138,7 +222,6 @@
           </div>
         </div>
 
-        <!-- Kolom Kanan: Detail Teks Lengkap -->
         <div style="flex: 1; width: 100%;">
           <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap;">
             <span id="modalGenre" class="tag tag-genre"></span>
@@ -161,22 +244,73 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
-  <footer style="margin-top: 4rem; padding: 2rem 0; text-align: center; color: rgba(255,255,255,0.8); font-size: 0.75rem; font-weight: 600; border-top: 1px solid rgba(255,255,255,0.2);">
+  <!-- ====== MODAL T&C ====== -->
+  <div id="tncModal" class="modal-overlay hidden">
+    <div class="modal-body" style="max-width: 600px;">
+      <button onclick="closeTncModal()" class="close-btn">✕</button>
+      <h2 id="tncModalTitle" style="font-size: 1.5rem; font-weight: 800; line-height: 1.3; color: var(--text-main); margin-bottom: 1.5rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem;"></h2>
+      <ol id="tncModalList" class="tnc-list" style="font-size: 0.95rem;"></ol>
+    </div>
+  </div>
+
+  <footer style="padding: 2rem 0; text-align: center; color: rgba(255,255,255,0.8); font-size: 0.75rem; font-weight: 600; border-top: 1px solid rgba(255,255,255,0.2);">
     <p>© Katalog Buku Yunaaa</p>
   </footer>
 
   <script>
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQdhaKnK0hMx_wqZi6c_gn_8frqXE1iOywJNvg7d8oDovSlN_rlFTLo6QGJvbsr5yY6ZLwFYmiCy4VY/pub?gid=0&single=true&output=csv';
     let allBooks = [];
+    let currentFilteredBooks = [];
+    let isShowingAll = false; // State pembatasan baris
 
-    // Fungsi Logika Hit Counter (Penyimpanan Lokal)
+    // Data lengkap Syarat & Ketentuan
+    const tncData = {
+      syarat: {
+        title: "1. Syarat & Ketentuan",
+        points: [
+          'Wajib follow Instagram <a href="https://www.instagram.com/perpustakaan.yunaaa/" target="_blank" style="color: var(--brand-pink); font-weight: bold;">@perpustakaan.yunaaa</a>',
+          'Membayar deposit sebesar Rp20.000 sebagai jaminan peminjam, akan dikembalikan setelah peminjaman selesai.',
+          'Wajib membayar ongkir pengiriman dan pengembalian.',
+          'Peminjaman maksimal 2 buku untuk sekali peminjaman.',
+          'Buku yang telah dipinjam, wajib dijaga baik-baik. Tidak membaca dalam kondisi tangan berminyak, basah, ataupun kotor. Tidak boleh mencoret, merusak, dan menghilangkan buku.'
+        ]
+      },
+      teknis: {
+        title: "2. Teknis Peminjaman",
+        points: [
+          'Memilih buku di katalog buku link: <a href="https://katalogbukuyunaaa.vercel.app" target="_blank" style="color: var(--brand-pink); font-weight: bold;">katalogbukuyunaaa.vercel.app</a>',
+          'Mengisi g-form peminjaman dengan jelas.',
+          'Pengiriman dilakukan setelah pembayaran deposit dan ongkir.',
+          'Resi dikirim paling cepat 2 hari setelah pembayaran.',
+          'Wajib konfirmasi setelah buku diterima.',
+          'Waktu peminjaman maksimal 1 bulan setelah buku diterima.',
+          'Resi pengembalian dikirim maksimal 2 hari setelah dikirim.',
+          'Deposit akan dikembalikan setelah buku yang dipinjam sudah tiba dengan kondisi baik.',
+          'Bubble wrap dan kardus tidak boleh dihilangkan.',
+          'Untuk wilayah Surabaya dan Malang, boleh dengan meet up / COD jika memungkinkan (teknis lebih lanjut chat DM/WA).'
+        ]
+      },
+      denda: {
+        title: "3. Denda Keterlambatan & Kerusakan",
+        points: [
+          'Diambil dari deposit dan jika kurang harus segera menambahkan sesuai nominal.',
+          'Keterlambatan 1-3 hari denda Rp10.000.',
+          'Keterlambatan 4-7 hari denda Rp20.000.',
+          'Keterlambatan lebih dari 7 hari denda Rp35.000.',
+          'Kerusakan minor, kecoret, ada bekas minyak, sobek, denda Rp10.000.',
+          'Kerusakan mayor atau menghilangkan buku WAJIB mengganti dengan buku dengan judul yang sama, BUKU WAJIB ORI.',
+          'Tidak mengembalikan bubble wrap/kardus denda Rp5.000.',
+          'Menghilangkan buble wrap/ kardus wajib mengganti.'
+        ]
+      }
+    };
+
     function updateVisitors() {
       let visits = localStorage.getItem('yunaaa_visits');
-      if (!visits) { visits = 142; } // Angka awal agar terlihat sudah ada yang mampir
+      if (!visits) { visits = 142; }
       visits = parseInt(visits) + 1;
       localStorage.setItem('yunaaa_visits', visits);
       document.getElementById('statVisitors').innerText = visits;
@@ -236,10 +370,11 @@
           }).filter(Boolean);
 
           document.getElementById('loading').style.display = 'none';
+          currentFilteredBooks = [...allBooks];
           setupFilters();
           updateStats();
-          renderBooks(allBooks);
-          updateVisitors(); // Jalankan fungsi pengunjung
+          renderBooks();
+          updateVisitors(); 
         }
       });
     }
@@ -257,18 +392,44 @@
       document.getElementById('locationFilter').innerHTML = locations.map(l => `<option value="${l}">${l === 'ALL' ? 'Semua Lokasi' : '📍 ' + l}</option>`).join('');
     }
 
-    function renderBooks(books) {
+    // ====== LOGIKA LIMIT BARIS ======
+    function getDisplayLimit() {
+      const width = window.innerWidth;
+      if (width >= 1280) return 12; // PC: 3 baris x 4 kartu
+      if (width >= 1024) return 9;  // Laptop: 3 baris x 3 kartu
+      if (width >= 640) return 6;   // Tablet: 3 baris x 2 kartu
+      return 4;                     // HP: 4 baris x 1 kartu
+    }
+
+    function renderBooks() {
       const container = document.getElementById('booksGrid');
       const emptyState = document.getElementById('emptyState');
+      const btnLoadMore = document.getElementById('btnLoadMore');
 
-      if (books.length === 0) {
+      if (currentFilteredBooks.length === 0) {
         container.innerHTML = '';
         emptyState.style.display = 'block';
+        btnLoadMore.style.display = 'none';
         return;
       }
 
       emptyState.style.display = 'none';
-      container.innerHTML = books.map(book => {
+
+      let limit = currentFilteredBooks.length;
+      if (!isShowingAll) {
+        limit = getDisplayLimit();
+      }
+
+      const booksToRender = currentFilteredBooks.slice(0, limit);
+      
+      // Tampilkan tombol Muat Lebih Banyak jika belum semua tampil
+      if (!isShowingAll && currentFilteredBooks.length > limit) {
+        btnLoadMore.style.display = 'block';
+      } else {
+        btnLoadMore.style.display = 'none';
+      }
+
+      container.innerHTML = booksToRender.map(book => {
         const isAvail = book.status.toUpperCase().includes('TERSEDIA');
         return `
           <div onclick="openModal(${book.id})" class="book-card">
@@ -283,7 +444,6 @@
               <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.35rem; line-height: 1.35;">${book.judul}</h3>
               <p style="font-size: 0.8rem; color: var(--text-sub); font-weight: 600;">${book.penulis}</p>
             </div>
-
             <div style="margin-top: 1.25rem; padding-top: 0.75rem; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--text-sub);">
               <span>📍 Rak: <strong style="color: var(--text-main);">${book.lokasi}</strong></span>
               <span style="color: var(--brand-pink); font-weight: 700;">Detail Lengkap →</span>
@@ -293,6 +453,24 @@
       }).join('');
     }
 
+    function showAllBooks() {
+      isShowingAll = true;
+      renderBooks();
+    }
+
+    // ====== MODAL T&C ======
+    function openTncModal(type) {
+      const data = tncData[type];
+      document.getElementById('tncModalTitle').innerText = data.title;
+      document.getElementById('tncModalList').innerHTML = data.points.map(p => `<li>${p}</li>`).join('');
+      document.getElementById('tncModal').classList.remove('hidden');
+    }
+    
+    function closeTncModal() {
+      document.getElementById('tncModal').classList.add('hidden');
+    }
+
+    // ====== MODAL BUKU LAMA ======
     function openModal(id) {
       const book = allBooks.find(b => b.id === id);
       if (!book) return;
@@ -339,7 +517,7 @@
       const status = document.getElementById('statusFilter').value;
       const rekom = document.getElementById('rekomFilter').value;
 
-      const filtered = allBooks.filter(b => {
+      currentFilteredBooks = allBooks.filter(b => {
         const mSearch = b.judul.toLowerCase().includes(search) || b.penulis.toLowerCase().includes(search);
         const mGenre = genre === 'ALL' || b.genre === genre;
         const mLoc = location === 'ALL' || b.lokasi === location;
@@ -351,7 +529,8 @@
         return mSearch && mGenre && mLoc && mStatus && mRekom;
       });
 
-      renderBooks(filtered);
+      isShowingAll = false; // Reset pembatasan baris setiap kali memfilter
+      renderBooks();
     }
 
     document.getElementById('searchInput').addEventListener('input', filterBooks);
@@ -359,6 +538,10 @@
     document.getElementById('locationFilter').addEventListener('change', filterBooks);
     document.getElementById('statusFilter').addEventListener('change', filterBooks);
     document.getElementById('rekomFilter').addEventListener('change', filterBooks);
+
+    window.addEventListener('resize', () => {
+      if (!isShowingAll) renderBooks(); // Re-render ukuran baris saat layar diputar/di-resize
+    });
 
     loadBooks();
   </script>

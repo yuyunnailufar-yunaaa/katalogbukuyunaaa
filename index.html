@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Katalog & Ketentuan - Perpustakaan Yunaaa</title>
+    <title>Perpustakaan Yunaaa</title>
     <style>
         :root {
-            --pink-soft-1: #fff0f3; /* Bagian 1: Syarat & Ketentuan */
-            --pink-soft-2: #ffe4e6; /* Bagian 2: Teknis Peminjaman */
-            --pink-soft-3: #fecdd3; /* Bagian 3: Denda */
+            --pink-soft-1: #fff0f3;
+            --pink-soft-2: #ffe4e6;
+            --pink-soft-3: #fecdd3;
             --pink-main: #e11d48;
             --pink-hover: #be123c;
             --text-dark: #334155;
@@ -29,22 +29,28 @@
             margin: 0 auto;
         }
 
+        /* HEADER AWAL */
         header {
             text-align: center;
             margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
         header h1 {
             color: var(--pink-main);
-            margin-bottom: 5px;
+            margin: 0 0 5px 0;
         }
 
         header p {
             color: #64748b;
+            margin: 0;
             font-size: 0.95rem;
         }
 
-        /* 1. BAGIAN KATALOG BUKU (Grid Kartu Buku) */
+        /* KARTU BUKU */
         .catalog-section {
             margin-bottom: 40px;
         }
@@ -55,232 +61,281 @@
             margin-bottom: 20px;
         }
 
-        .book-grid {
+        .book-list {
             display: grid;
-            gap: 15px;
-            /* Tampilan HP: 4 kolom */
-            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            /* Tampilan HP: 3 baris, 1 kolom (1 baris 1 kartu) */
+            grid-template-columns: 1fr;
         }
 
-        /* Tampilan PC (Desktop): 3 kolom */
-        @media (min-width: 768px) {
-            .book-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 20px;
-            }
-        }
-
-        .book-card {
+        .book-item {
             background: white;
-            border-radius: 12px;
-            padding: 12px;
+            padding: 15px 20px;
+            border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            text-align: center;
-            border: 1px solid #fbcfe8;
+            border-left: 5px solid var(--pink-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .book-card img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 8px;
+        .book-info h4 {
+            margin: 0 0 5px 0;
+            color: var(--text-dark);
+            font-size: 1rem;
         }
 
+        .book-info p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        /* Tampilan PC: 3 baris, 1 baris isi 4 kartu */
         @media (min-width: 768px) {
-            .book-card img {
-                height: 200px;
+            .book-list {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 15px;
+            }
+            .book-item {
+                flex-direction: column;
+                text-align: center;
+                border-left: none;
+                border-top: 5px solid var(--pink-main);
+                padding: 20px;
             }
         }
 
-        .book-title {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
+        /* 3 KARTU KETENTUAN BERSEBELAHAN */
+        .info-cards-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
         }
 
-        /* 2. BAGIAN KETENTUAN (3 Kartu dengan Pink Soft Berbeda) */
-        .rules-section {
+        @media (min-width: 768px) {
+            .info-cards-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .info-card {
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            justify-content: space-between;
         }
 
-        .rule-card {
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
+        .card-syarat { background-color: var(--pink-soft-1); border-top: 5px solid #fda4af; }
+        .card-teknis { background-color: var(--pink-soft-2); border-top: 5px solid #fb7185; }
+        .card-denda { background-color: var(--pink-soft-3); border-top: 5px solid #f43f5e; }
 
-        .section-syarat {
-            background-color: var(--pink-soft-1);
-            border-left: 6px solid #fda4af;
-        }
-
-        .section-teknis {
-            background-color: var(--pink-soft-2);
-            border-left: 6px solid #fb7185;
-        }
-
-        .section-denda {
-            background-color: var(--pink-soft-3);
-            border-left: 6px solid #f43f5e;
-        }
-
-        .rule-card h3 {
-            font-size: 1.15rem;
+        .info-card h3 {
+            font-size: 1.05rem;
             color: #881337;
             margin-top: 0;
-            border-bottom: 2px dashed rgba(225, 29, 72, 0.2);
-            padding-bottom: 8px;
+            margin-bottom: 10px;
         }
 
-        ol {
-            padding-left: 20px;
+        /* Dropdown Read More */
+        .details-content {
+            display: none;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            text-align: left;
+        }
+
+        .details-content ol {
+            padding-left: 15px;
             margin: 0;
+        }
+
+        .details-content li {
+            margin-bottom: 6px;
+        }
+
+        .read-more-btn {
+            background: none;
+            border: none;
+            color: var(--pink-main);
+            font-weight: 600;
+            cursor: pointer;
+            padding: 5px 0;
+            margin-top: 10px;
+            text-align: left;
             font-size: 0.9rem;
         }
 
-        li {
-            margin-bottom: 8px;
+        .read-more-btn:hover {
+            text-decoration: underline;
         }
 
         a {
             color: var(--pink-main);
             text-decoration: none;
-            font-weight: 600;
         }
 
         a:hover {
             text-decoration: underline;
-            color: var(--pink-hover);
         }
 
-        /* Tombol Aksi di Bawah */
-        .action-container {
+        /* BAGIAN BAWAH: FORM & CUPLIKAN G-FORM */
+        .form-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
             text-align: center;
-            margin: 40px 0;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .form-section h2 {
+            color: var(--pink-main);
+            margin-top: 0;
         }
 
         .btn {
+            display: inline-block;
             background-color: var(--pink-main);
             color: white;
-            padding: 12px 24px;
+            padding: 12px 25px;
             border-radius: 50px;
             font-weight: 600;
             text-decoration: none;
             box-shadow: 0 4px 10px rgba(225, 29, 72, 0.3);
-            transition: background-color 0.2s, transform 0.2s;
+            margin-bottom: 20px;
+            transition: background 0.2s;
         }
 
         .btn:hover {
             background-color: var(--pink-hover);
             color: white;
-            text-decoration: none;
-            transform: scale(1.03);
         }
 
-        .btn-ig {
-            background-color: #f43f5e;
+        .gform-embed {
+            width: 100%;
+            height: 500px;
+            border: 1px solid #fbcfe8;
+            border-radius: 10px;
+            margin-top: 15px;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <!-- HEADER -->
     <header>
         <h1>Perpustakaan Yunaaa</h1>
-        <p>Katalog Buku, Syarat, dan Ketentuan Peminjaman</p>
+        <p>Peminjaman Buku Independen & Nyaman</p>
     </header>
 
-    <!-- BAGIAN 1: KARTU BUKU (Grid 4 kolom di HP, 3 kolom di PC) -->
+    <!-- BAGIAN BUKU (PC: 3 baris, 4 kartu per baris | HP: 3 baris, 1 kartu per baris) -->
     <div class="catalog-section">
         <h2>Katalog Buku Pilihan</h2>
-        <div class="book-grid">
-            <!-- Contoh Kartu Buku (bisa diulang atau dihubungkan dengan data Google Sheets CMS) -->
-            <div class="book-card">
-                <img src="https://raw.githubusercontent.com/yuyunnailufar-yunaaa/katalogbukuyunaaa/main/images/nanti%20kita%20sambat%20tentang%20hari%20ini.jpg" alt="Nanti Kita Sambat Tentang Hari Ini">
-                <div class="book-title">Nanti Kita Sambat Tentang Hari Ini</div>
-            </div>
-            <div class="book-card">
-                <img src="https://raw.githubusercontent.com/yuyunnailufar-yunaaa/katalogbukuyunaaa/main/images/orang-orang%20gila.jpg" alt="Orang-Orang Gila">
-                <div class="book-title">Orang-Orang Gila</div>
-            </div>
-            <div class="book-card">
-                <img src="https://raw.githubusercontent.com/yuyunnailufar-yunaaa/katalogbukuyunaaa/main/images/cantik%20itu%20luka.jpg" alt="Cantik Itu Luka">
-                <div class="book-title">Cantik Itu Luka</div>
-            </div>
-            <div class="book-card">
-                <img src="https://raw.githubusercontent.com/yuyunnailufar-yunaaa/katalogbukuyunaaa/main/images/qiraah%20mubadalah.jpg" alt="Qiraah Mubadalah">
-                <div class="book-title">Qiraah Mubadalah</div>
-            </div>
+        <div class="book-list">
+            <!-- Contoh Kartu Buku (Total 12 buku untuk 3 baris x 4 kolom di PC) -->
+            <div class="book-item"><div class="book-info"><h4>Cantik Itu Luka</h4><p>Eka Kurniawan</p></div></div>
+            <div class="book-item"><div class="book-info"><h4>Filosofi Teras</h4><p>Henry Manampiring</p></div></div>
+            <div class="book-item"><div class="book-info"><h4>Orang-Orang Gila</h4><p>Novel</p></div></div>
+            <div class="book-item"><div class="book-info"><h4>Qiraah Mubadalah</h4><p>Faqihuddin Abdul Kodir</p></div></div>
+            <div class="book-item"><div class="book-info"><h4>Nanti Kita Sambat Tentang Hari Ini</h4><p>Fajar Nugraha</p></div></div>
+            <div class="book-item"><div class="book-info"><h4>Multi-Identitas</h4><p>Zahid</p></div></div>
+            <div class="book-item"><div class="book-info"><h4>Laut Bercerita</h4><p>Leila S. Chudori</p></div></div>
+            <div class="book-item"><div class="book-info"><h4>Pulang</h4><p>Leila S. Chudori</p></div></div>
+            <div class="book-item"><div class="book-info"><h4>Garis Waktu</h4><p>Fiersa Besari</p></div></div>
+            <div class="book-item"><div class="book-info"><h4>11.11</h4><p>Fiersa Besari</p></div></div>
+            <div class="book-item"><div class="book-info"><h4>Perjalanan Rasa</h4><p>Fiersa Besari</p></div></div>
+            <div class="book-item"><div class="book-info"><h4>Bumi</h4><p>Tere Liye</p></div></div>
         </div>
     </div>
 
-    <!-- BAGIAN 2: SYARAT DAN KETENTUAN (3 Bagian Berbeda Warna Pink Soft) -->
-    <div class="rules-section">
+    <!-- 3 KARTU KETENTUAN DI BAWAHNYA -->
+    <div class="info-cards-container">
         
-        <!-- 1. Syarat dan Ketentuan -->
-        <div class="rule-card section-syarat">
-            <h3>1. Syarat dan Ketentuan</h3>
-            <ol>
-                <li>Wajib follow <a href="https://www.instagram.com/perpustakaan.yunaaa/" target="_blank">@perpustakaan.yunaaa</a></li>
-                <li>Membayar deposit sebesar Rp20.000 sebagai jaminan peminjam, akan dikembalikan setelah peminjaman selesai.</li>
-                <li>Wajib membayar ongkir pengiriman dan pengembalian.</li>
-                <li>Peminjaman maksimal 2 buku untuk sekali peminjaman.</li>
-                <li>Buku yang telah dipinjam, wajib dijaga baik-baik. Tidak membaca dalam kondisi tangan berminyak, basah, ataupun kotor. Tidak boleh mencoret, merusak, dan menghilangkan buku.</li>
-            </ol>
+        <!-- Kartu 1: Syarat dan Ketentuan -->
+        <div class="info-card card-syarat">
+            <div>
+                <h3>Syarat dan Ketentuan</h3>
+                <div id="content-syarat" class="details-content">
+                    <ol>
+                        <li>Wajib follow <a href="https://www.instagram.com/perpustakaan.yunaaa/" target="_blank">@perpustakaan.yunaaa</a></li>
+                        <li>Membayar deposit Rp20.000 (dikembalikan setelah peminjaman selesai).</li>
+                        <li>Wajib membayar ongkir pengiriman & pengembalian.</li>
+                        <li>Maksimal peminjaman 2 buku sekali jalan.</li>
+                        <li>Menjaga buku dengan baik, tidak membaca saat tangan kotor/berminyak, dilarang mencoret/merusak.</li>
+                    </ol>
+                </div>
+            </div>
+            <button class="read-more-btn" onclick="toggleDetails('syarat', this)">Read More...</button>
         </div>
 
-        <!-- 2. Teknis Peminjaman -->
-        <div class="rule-card section-teknis">
-            <h3>2. Teknis Peminjaman</h3>
-            <ol>
-                <li>Memilih buku di katalog buku link: <a href="https://katalogbukuyunaaa.vercel.app" target="_blank">katalogbukuyunaaa.vercel.app</a></li>
-                <li>Mengisi g-form peminjaman dengan jelas.</li>
-                <li>Pengiriman setelah pembayaran deposit dan ongkir.</li>
-                <li>Resi dikirim paling cepat 2 hari setelah pembayaran.</li>
-                <li>Wajib konfirmasi setelah buku diterima.</li>
-                <li>Waktu peminjaman maksimal 1 bulan setelah buku diterima.</li>
-                <li>Resi pengembalian dikirim maksimal 2 hari setelah dikirim.</li>
-                <li>Deposit akan dikembalikan setelah buku yang dipinjam sudah tiba dengan kondisi baik.</li>
-                <li>Bubble wrap dan kardus tidak boleh dihilangkan.</li>
-                <li>Untuk wilayah Surabaya dan Malang, boleh dengan meet up / COD jika memungkinkan (teknis lebih lanjut chat DM/WA)</li>
-            </ol>
+        <!-- Kartu 2: Teknik Peminjaman -->
+        <div class="info-card card-teknis">
+            <div>
+                <h3>Teknik Peminjaman</h3>
+                <div id="content-teknis" class="details-content">
+                    <ol>
+                        <li>Pilih buku via katalog: <a href="https://katalogbukuyunaaa.vercel.app" target="_blank">katalogbukuyunaaa.vercel.app</a></li>
+                        <li>Mengisi G-Form peminjaman dengan jelas.</li>
+                        <li>Pengiriman diproses setelah deposit & ongkir dibayar.</li>
+                        <li>Resi dikirim maksimal 2 hari setelah pembayaran.</li>
+                        <li>Wajib konfirmasi setelah buku diterima.</li>
+                        <li>Masa peminjaman maksimal 1 bulan.</li>
+                        <li>Surabaya & Malang bisa COD/meet-up jika memungkinkan.</li>
+                    </ol>
+                </div>
+            </div>
+            <button class="read-more-btn" onclick="toggleDetails('teknis', this)">Read More...</button>
         </div>
 
-        <!-- 3. Denda -->
-        <div class="rule-card section-denda">
-            <h3>3. Denda</h3>
-            <ol>
-                <li>Diambil dari deposit dan jika kurang harus segera menambahkan sesuai nominal.</li>
-                <li>Keterlambatan 1-3 hari denda Rp10.000.</li>
-                <li>Keterlambatan 4-7 hari denda Rp20.000.</li>
-                <li>Keterlambatan lebih dari 7 hari denda Rp35.000.</li>
-                <li>Kerusakan minor, kecoret, ada bekas minyak, sobek, denda Rp10.000.</li>
-                <li>Kerusakan mayor atau menghilangkan buku <strong>WAJIB</strong> mengganti dengan buku dengan judul yang sama, <strong>BUKU WAJIB ORI</strong>.</li>
-                <li>Tidak mengembalikan bubble wrap/kardus denda Rp5.000.</li>
-                <li>Menghilangkan bubble wrap/ kardus wajib mengganti.</li>
-            </ol>
+        <!-- Kartu 3: Denda -->
+        <div class="info-card card-denda">
+            <div>
+                <h3>Denda</h3>
+                <div id="content-denda" class="details-content">
+                    <ol>
+                        <li>Diambil dari deposit, jika kurang wajib menambah.</li>
+                        <li>Telat 1-3 hari: Rp10.000.</li>
+                        <li>Telat 4-7 hari: Rp20.000.</li>
+                        <li>Telat >7 hari: Rp35.000.</li>
+                        <li>Kerusakan minor/coretan: Rp10.000.</li>
+                        <li>Kerusakan mayor/hilang: Wajib ganti buku original judul sama.</li>
+                        <li>Hilang/rusak kardus & bubble wrap: Wajib ganti atau denda Rp5.000.</li>
+                    </ol>
+                </div>
+            </div>
+            <button class="read-more-btn" onclick="toggleDetails('denda', this)">Read More...</button>
         </div>
 
     </div>
 
-    <!-- Tombol Google Form & Instagram -->
-    <div class="action-container">
-        <a href="https://forms.gle/QXPt32d7S3RT9AGz8" target="_blank" class="btn">Isi Google Form Peminjaman</a>
-        <a href="https://www.instagram.com/perpustakaan.yunaaa/" target="_blank" class="btn btn-ig">Kunjungi Instagram</a>
+    <!-- BAGIAN BAWAH: ISI FORM & CUPLIKAN G-FORM -->
+    <div class="form-section">
+        <h2>Isi Form Peminjaman</h2>
+        <a href="https://forms.gle/QXPt32d7S3RT9AGz8" target="_blank" class="btn">Buka Google Form di Tab Baru</a>
+        
+        <p style="margin-bottom: 10px; font-size: 0.9rem; color: #64748b;">Atau isi langsung melalui cuplikan form di bawah ini:</p>
+        
+        <!-- Cuplikan G-Form -->
+        <iframe class="gform-embed" src="https://forms.gle/QXPt32d7S3RT9AGz8" title="Google Form Peminjaman Buku Perpustakaan Yunaaa">Memuat…</iframe>
     </div>
 </div>
+
+<script>
+    function toggleDetails(type, btn) {
+        const content = document.getElementById('content-' + type);
+        if (content.style.display === 'block') {
+            content.style.display = 'none';
+            btn.innerText = 'Read More...';
+        } else {
+            content.style.display = 'block';
+            btn.innerText = 'Tutup';
+        }
+    }
+</script>
 
 </body>
 </html>
